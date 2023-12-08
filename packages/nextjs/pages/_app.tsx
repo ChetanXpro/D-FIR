@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import type { AppProps } from "next/app";
 import { RainbowKitProvider, darkTheme, lightTheme } from "@rainbow-me/rainbowkit";
 import "@rainbow-me/rainbowkit/styles.css";
+import { AnonAadhaarProvider } from "anon-aadhaar-react";
 import NextNProgress from "nextjs-progressbar";
 import { Toaster } from "react-hot-toast";
 import { useDarkMode } from "usehooks-ts";
@@ -15,6 +16,7 @@ import { wagmiConfig } from "~~/services/web3/wagmiConfig";
 import { appChains } from "~~/services/web3/wagmiConnectors";
 import "~~/styles/globals.css";
 
+const app_id = process.env.NEXT_PUBLIC_APP_ID || "";
 const ScaffoldEthApp = ({ Component, pageProps }: AppProps) => {
   const price = useNativeCurrencyPrice();
   const setNativeCurrencyPrice = useGlobalState(state => state.setNativeCurrencyPrice);
@@ -30,7 +32,9 @@ const ScaffoldEthApp = ({ Component, pageProps }: AppProps) => {
       <div className="flex flex-col min-h-screen">
         <Header />
         <main className="relative flex flex-col flex-1">
-          <Component {...pageProps} />
+          <AnonAadhaarProvider _appId={app_id}>
+            <Component {...pageProps} />
+          </AnonAadhaarProvider>
         </main>
         <Footer />
       </div>
