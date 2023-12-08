@@ -1,80 +1,70 @@
-# 🏗 Scaffold-ETH 2
+# D-FIR System
 
-<h4 align="center">
-  <a href="https://docs.scaffoldeth.io">Documentation</a> |
-  <a href="https://scaffoldeth.io">Website</a>
-</h4>
+## What is D-FIR
 
-🧪 An open-source, up-to-date toolkit for building decentralized applications (dapps) on the Ethereum blockchain. It's designed to make it easier for developers to create and deploy smart contracts and build user interfaces that interact with those contracts.
+## Why D-FIR
 
-⚙️ Built using NextJS, RainbowKit, Hardhat, Wagmi, and Typescript.
+**M**ost people dread going to the police station when a crime takes place. There is usually a feeling that registering a complaint is a tedious process or that the police will not be cooperative. But that shouldn’t stop anybody from taking action against a crime.
 
-- ✅ **Contract Hot Reload**: Your frontend auto-adapts to your smart contract as you edit it.
-- 🪝 **[Custom hooks](https://docs.scaffoldeth.io/hooks/)**: Collection of React hooks wrapper around [wagmi](https://wagmi.sh/) to simplify interactions with smart contracts with typescript autocompletion.
-- 🧱 [**Components**](https://docs.scaffoldeth.io/components/): Collection of common web3 components to quickly build your frontend.
-- 🔥 **Burner Wallet & Local Faucet**: Quickly test your application with a burner wallet and local faucet.
-- 🔐 **Integration with Wallet Providers**: Connect to different wallet providers and interact with the Ethereum network.
+## Process of De-FIR Registration
 
-![Debug Contracts tab](https://github.com/scaffold-eth/scaffold-eth-2/assets/55535804/1171422a-0ce4-4203-bcd4-d2d1941d198b)
+1. **Verification of Complainant:** We use [Anon Aadhar](https://anon-aadhaar-documentation.vercel.app/) for this process.
+2. **\*\***Securing Suspect’s Name:**\*\*** To be discussed
+3. **Time Limit for Signing:** To be discussed
+4. **Police Verification:** To be discussed
+5. **Complainant’s Signature:** To be discussed (this is the main pain point even in e-FIR)
+6. **Limitations:** This process applies only when the accused is known. (Didn’t understand it)
 
-## Requirements
+It is essential to recognize that e-FIRs do not represent an entirely automated process; they rely on the physical signatures of complainants within a specified time frame. This limitation means that investigations initiated before the formal registration of the FIR may not align with the standard procedures of the Code of Criminal Procedure.
 
-Before you begin, you need to install the following tools:
+## \***\*Limited Efficacy of De-FIRs\*\***
 
-- [Node (v18 LTS)](https://nodejs.org/en/download/)
-- Yarn ([v1](https://classic.yarnpkg.com/en/docs/install/) or [v2+](https://yarnpkg.com/getting-started/install))
-- [Git](https://git-scm.com/downloads)
+It is essential to recognize that e-FIRs do not represent an entirely automated process; they rely on the physical signatures of complainants within a specified time frame. This limitation means that investigations initiated before the formal registration of the FIR may not align with the standard procedures of the Code of Criminal Procedure.
 
-## Quickstart
+## **Potential Misconceptions**
 
-To get started with Scaffold-ETH 2, follow the steps below:
+Allowing a three-day window for D-FIR registration might give the impression to the common man that it will not affect the case negatively during that period. However, this might not align with the nuances of certain crimes, and complainants may not fully grasp the urgency or importance of their cases.
 
-1. Clone this repo & install dependencies
+## Resources
 
-```
-git clone https://github.com/scaffold-eth/scaffold-eth-2.git
-cd scaffold-eth-2
-yarn install
-```
+[22nd Law Commission submits report:](https://pib.gov.in/PressReleaseIframePage.aspx?PRID=1962238)
 
-2. Run a local network in the first terminal:
+![https://www.iasexpress.net/wp-content/uploads/2023/11/image-76.png](https://www.iasexpress.net/wp-content/uploads/2023/11/image-76.png)
 
-```
-yarn chain
-```
+[Welcome to CCTNS Citizen Portal](https://eservices.tnpolice.gov.in/CCTNSNICSDC/ComplaintRegistrationPage?4)
 
-This command starts a local Ethereum network using Hardhat. The network runs on your local machine and can be used for testing and development. You can customize the network configuration in `hardhat.config.ts`.
+### ID features - From Polygon
 
-3. On a second terminal, deploy the test contract:
+[ETHGlobal | Prizes](https://ethglobal.com/events/ethindia2023/prizes#polygon)
 
-```
-yarn deploy
-```
+## Deploy on Scroll
 
-This command deploys a test smart contract to the local network. The contract is located in `packages/hardhat/contracts` and can be modified to suit your needs. The `yarn deploy` command uses the deploy script located in `packages/hardhat/deploy` to deploy the contract to the network. You can also customize the deploy script.
+[ETHGlobal | Prizes](https://ethglobal.com/events/ethindia2023/prizes#scroll)
 
-4. On a third terminal, start your NextJS app:
+## NFT Storage on FileCoin
 
-```
-yarn start
-```
+[ETHGlobal | Prizes](https://ethglobal.com/events/ethindia2023/prizes#filecoin-and-ipfs)
 
-Visit your app on: `http://localhost:3000`. You can interact with your smart contract using the `Debug Contracts` page. You can tweak the app config in `packages/nextjs/scaffold.config.ts`.
+## Analytics using Powerloom
 
-Run smart contract test with `yarn hardhat:test`
+[ETHGlobal | Prizes](https://ethglobal.com/events/ethindia2023/prizes#powerloom)
 
-- Edit your smart contract `YourContract.sol` in `packages/hardhat/contracts`
-- Edit your frontend in `packages/nextjs/pages`
-- Edit your deployment scripts in `packages/hardhat/deploy`
+## Account Abstraction using Safe
 
-## Documentation
+[ETHGlobal | Prizes](https://ethglobal.com/events/ethindia2023/prizes#safe)
 
-Visit our [docs](https://docs.scaffoldeth.io) to learn how to start building with Scaffold-ETH 2.
+## Identity Verification using AnonAadhar
 
-To know more about its features, check out our [website](https://scaffoldeth.io).
+[ETHGlobal | Prizes](https://ethglobal.com/events/ethindia2023/prizes#ethereum-foundation)
 
-## Contributing to Scaffold-ETH 2
+## Notification System
 
-We welcome contributions to Scaffold-ETH 2!
+[ETHGlobal | Prizes](https://ethglobal.com/events/ethindia2023/prizes#push-protocol)
 
-Please see [CONTRIBUTING.MD](https://github.com/scaffold-eth/scaffold-eth-2/blob/main/CONTRIBUTING.md) for more information and guidelines for contributing to Scaffold-ETH 2.
+## Account Abstraction + PayMaster
+
+[ETHGlobal | Prizes](https://ethglobal.com/events/ethindia2023/prizes#base)
+
+## Analytics
+
+[ETHGlobal | Prizes](https://ethglobal.com/events/ethindia2023/prizes#the-graph)
