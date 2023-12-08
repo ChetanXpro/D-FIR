@@ -1,52 +1,82 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.17;
 
-import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
 
-contract FIRSystem is ERC1155, Ownable {
-    uint256 public s_currentFIRId;
-    mapping(uint256 => address) public s_assignedOfficer;
-    mapping(uint256 => string) private s_tokenURIs;
-    mapping(uint256 => bool) private s_firToOfficer;
+contract EFIR is ERC721, ERC721URIStorage, ERC721Burnable {
+    uint256 private _currentFIRId;
+    uint256[] private s_firIds;
+    mapping(uint256 => address) public firApprovedToOfficer;
+    mapping(uint256 => address) public assignedOfficer;
 
-    event FiledFir(address indexed owner, uint256 tokenId, uint256 timeRecorded);
+    event FiledFIR(address indexed owner, uint256 tokenId, uint256 timeRecorded);
     event AssignedOfficer(address indexed officer, uint256 tokenId, uint256 timeRecorded);
+    event UpdatedFIR(address indexed officer, uint256 tokenId, uint256 timeRecorded, string tokenUri);
 
-    constructor() ERC1155("") Ownable(msg.sender) {
-        s_currentFIRId = 0;
+    constructor() ERC721("EFIRToken", "EFIRT") {
+        _currentFIRId = 0;
     }
 
     function fileFIR(string memory tokenUri) public returns (uint256) {
-        uint256 newFIRId = s_currentFIRId++;
-        _mint(msg.sender, newFIRId, 1, "");
+        uint256 newFIRId = _currentFIRId++;
+        _mint(msg.sender, newFIRId);
         _setTokenURI(newFIRId, tokenUri);
+        s_firIds.push(newFIRId);
+        emit FiledFIR(msg.sender, newFIRId, block.timestamp);
         return newFIRId;
     }
 
-    function assignOfficer(uint256 firId, address officer) public onlyOwner {
-        require(exists(firId), "FIR does not exist");
-        require(!s_firToOfficer[firId], "Already assigned officer");
-        s_firToOfficer[firId] = true;
-        s_assignedOfficer[firId] = officer;
-        _mint(officer, firId, 1, "");
+    function approveOfficer(uint256 firId, address officer) public {
+        require(ownerOf(firId) == msg.sender, "ERC721: caller is not the owner");
+        firApprovedToOfficer[firId] = officer;
+    }
+
+    function assignOfficer(uint256 firId) public {
+        require(_exists(firId), "ERC721: FIR does not exist");
+        address approvedOfficer = firApprovedToOfficer[firId];
+        require(approvedOfficer == msg.sender, "ERC721: Not approved officer");
+
+        assignedOfficer[firId] = approvedOfficer;
+        _transfer(msg.sender, approvedOfficer, firId);
+        emit AssignedOfficer(approvedOfficer, firId, block.timestamp);
     }
 
     function updateFIR(uint256 firId, string memory tokenUri) public {
-        require(msg.sender == owner() || msg.sender == s_assignedOfficer[firId], "Not authorized");
+        require(assignedOfficer[firId] == msg.sender, "ERC721: Not authorized officer");
         _setTokenURI(firId, tokenUri);
+        emit UpdatedFIR(msg.sender, firId, block.timestamp, tokenUri);
     }
 
-    function uri(uint256 firId) public view override returns (string memory) {
-        require(exists(firId), "FIR does not exist");
-        return s_tokenURIs[firId];
+    function burn(uint256 tokenId) public override {
+        _burn(tokenId);
     }
 
-    function _setTokenURI(uint256 firId, string memory newuri) internal virtual {
-        s_tokenURIs[firId] = newuri;
+    function tokenURI(uint256 tokenId) public view override(ERC721, ERC721URIStorage) returns (string memory) {
+        return super.tokenURI(tokenId);
     }
 
-    function exists(uint256 firId) public view returns (bool) {
-        return bytes(s_tokenURIs[firId]).length > 0;
+    function _setTokenURI(uint256 tokenId, string memory tokenUri) internal override(ERC721URIStorage) {
+        super._setTokenURI(tokenId, tokenUri);
+    }
+
+    function _exists(uint256 tokenId) internal view returns (bool) {
+        for (uint256 i = 0; i < s_firIds.length; i++) {
+            if (s_firIds[i] == tokenId) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function supportsInterface(bytes4 interfaceId)
+        public
+        view
+        virtual
+        override(ERC721, ERC721URIStorage)
+        returns (bool)
+    {
+        return super.supportsInterface(interfaceId);
     }
 }
