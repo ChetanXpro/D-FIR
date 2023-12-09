@@ -113,7 +113,7 @@ export const Header = () => {
         )} */}
 
         <RainbowKitCustomConnectButton />
-        <FaucetButton />
+        {/* <FaucetButton /> */}
       </div>
     </div>
   );
