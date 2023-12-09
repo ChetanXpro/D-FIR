@@ -6,7 +6,7 @@ import { Hero } from "~~/components/global";
 const Home: NextPage = () => {
   const router = useRouter();
   return (
-    <div className="flex flex-col h-screen w-full">
+    <div className="flex flex-col w-full">
       <MetaHeader />
       <Hero
         heading="Welome to D-Fir"
