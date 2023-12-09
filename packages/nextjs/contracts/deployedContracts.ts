@@ -754,7 +754,7 @@ const deployedContracts = {
   },
   84531: {
     EFIR: {
-      address: "0x2005Fa572d90a8b6DBD3f987B3f6e12a38b5a710",
+      address: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
       abi: [
         {
           inputs: [],

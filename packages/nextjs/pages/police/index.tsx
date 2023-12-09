@@ -19,16 +19,19 @@ export default function Police() {
 
   const rows = [
     {
+      id: "1",
       name: "John",
       job: "Software Engineer",
       favoriteColor: "Blue",
     },
     {
+      id: "2",
       name: "Jane",
       job: "Software Engineer",
       favoriteColor: "Green",
     },
     {
+      id: "3",
       name: "Jack",
       job: "Software Engineer",
       favoriteColor: "Red",

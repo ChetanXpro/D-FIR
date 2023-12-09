@@ -3,6 +3,7 @@ import type { AppProps } from "next/app";
 import UserProvider from "./providers/AuthContext";
 import { RainbowKitProvider, darkTheme, lightTheme } from "@rainbow-me/rainbowkit";
 import "@rainbow-me/rainbowkit/styles.css";
+import { AnonAadhaarProvider } from "anon-aadhaar-react";
 import { SessionProvider } from "next-auth/react";
 import NextNProgress from "nextjs-progressbar";
 import { Toaster } from "react-hot-toast";
@@ -42,6 +43,7 @@ const ScaffoldEthApp = ({ Component, pageProps }: AppProps) => {
     </SessionProvider>
   );
 };
+const appId = process.env.NEXT_PUBLIC_APP_ID || "";
 
 const ScaffoldEthAppWithProviders = (props: AppProps) => {
   // This variable is required for initial client side rendering of correct theme for RainbowKit
@@ -52,16 +54,18 @@ const ScaffoldEthAppWithProviders = (props: AppProps) => {
   }, [isDarkMode]);
 
   return (
-    <WagmiConfig config={wagmiConfig}>
-      <NextNProgress />
-      <RainbowKitProvider
-        chains={appChains.chains}
-        avatar={BlockieAvatar}
-        theme={isDarkTheme ? darkTheme() : lightTheme()}
-      >
-        <ScaffoldEthApp {...props} />
-      </RainbowKitProvider>
-    </WagmiConfig>
+    <AnonAadhaarProvider _appId={appId}>
+      <WagmiConfig config={wagmiConfig}>
+        <NextNProgress />
+        <RainbowKitProvider
+          chains={appChains.chains}
+          avatar={BlockieAvatar}
+          theme={isDarkTheme ? darkTheme() : lightTheme()}
+        >
+          <ScaffoldEthApp {...props} />
+        </RainbowKitProvider>
+      </WagmiConfig>
+    </AnonAadhaarProvider>
   );
 };
 
