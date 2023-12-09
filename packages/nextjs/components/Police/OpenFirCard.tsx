@@ -1,11 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { firToEditAtom } from "../../atoms/atoms";
-import Select from "../Select";
-// import Select from "../Select";
 import { useAtom } from "jotai";
-import { FIRStatusList } from "~~/utils/constant";
-
-// import { FIRStatusList } from "~~/utils/constant";
 
 interface Props {
   //   isEditTaskDrawerOpen: boolean;
@@ -33,7 +28,7 @@ const OpenFIRCard = ({
 Props) => {
   const [, setTaskToEdit] = useAtom(firToEditAtom);
   //   const [, setTaskToView] = useAtom(firToViewAtom);
-  const [markbutton, setMarkButton] = useState(false);
+
   const [actionButton, setActionButton] = React.useState(false);
   //   const [markbutton, setMarkButton] = useState(false);
   const actiondropdownRef = React.useRef<HTMLDivElement>(null);

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 
 interface SelectProps {
   list: { label: string; value: string }[];
@@ -10,18 +10,21 @@ interface SelectProps {
 
 const Select = ({ list, label, isOpen, setIsOpen, onSelect }: SelectProps) => {
   const dropdownRef = React.useRef<HTMLDivElement>(null);
-  const handleClickOutside = (e: any) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-      setIsOpen(false);
-    }
-  };
+  const handleClickOutside = useCallback(
+    (e: any) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setIsOpen(false);
+      }
+    },
+    [setIsOpen],
+  );
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [handleClickOutside]);
   return (
     <div ref={dropdownRef} className="flex relative">
       <button
