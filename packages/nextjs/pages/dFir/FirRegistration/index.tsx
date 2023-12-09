@@ -3,11 +3,10 @@ import lighthouse from "@lighthouse-web3/sdk";
 import AES from "crypto-js/aes";
 import { useAccount } from "wagmi";
 
-// import jsPDF from "jspdf";
-
 const apiKey = process.env.NEXT_PUBLIC_LIGHTHOUSE_KEY;
 
 const secretKey = process.env.NEXT_PUBLIC_LIGHTHOUSE_SECRET_KEY;
+
 const FirRegistration = () => {
   const { address } = useAccount();
   const [firData, setFirData] = useState({

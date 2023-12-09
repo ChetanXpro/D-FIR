@@ -6,9 +6,16 @@ import { Hero } from "~~/components/global";
 const Home: NextPage = () => {
   const router = useRouter();
   return (
-    <div className="flex flex-col h-screen w-full">
+    <div className="flex flex-col w-full">
       <MetaHeader />
-      <Hero />
+      <Hero
+        heading="Welome to D-Fir"
+        subHeading="Here you can report your FIR with total trust"
+        primaryBtnText="Citizen"
+        secondaryBtnText="Police Dept"
+        onPrimaryClick={() => router.push("citizen")}
+        onSecondaryClick={() => router.push("police")}
+      />
     </div>
   );
 };
