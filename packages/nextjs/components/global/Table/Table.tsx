@@ -6,7 +6,6 @@ export interface TableProps {
     title: string;
   }[];
   rows: {
-    id: string;
     [key: string]: string;
   }[];
 }

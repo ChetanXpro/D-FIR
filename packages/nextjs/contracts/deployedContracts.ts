@@ -5,9 +5,9 @@
 import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 
 const deployedContracts = {
-  31337: {
+  80001: {
     EFIR: {
-      address: "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+      address: "0xD724f64841917465AF364B6858D6eD7E3765D0eb",
       abi: [
         {
           inputs: [],
@@ -217,6 +217,31 @@ const deployedContracts = {
             {
               indexed: true,
               internalType: "address",
+              name: "officer",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "firId",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "timeRecorded",
+              type: "uint256",
+            },
+          ],
+          name: "ClosedFIR",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
               name: "owner",
               type: "address",
             },
@@ -231,6 +256,12 @@ const deployedContracts = {
               internalType: "uint256",
               name: "timeRecorded",
               type: "uint256",
+            },
+            {
+              indexed: true,
+              internalType: "string",
+              name: "location",
+              type: "string",
             },
           ],
           name: "FiledFIR",
@@ -393,6 +424,11 @@ const deployedContracts = {
               name: "tokenUri",
               type: "string",
             },
+            {
+              internalType: "string",
+              name: "location",
+              type: "string",
+            },
           ],
           name: "fileFIR",
           outputs: [
@@ -513,6 +549,25 @@ const deployedContracts = {
               internalType: "address",
               name: "",
               type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "s_firIdToLocation",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
             },
           ],
           stateMutability: "view",
