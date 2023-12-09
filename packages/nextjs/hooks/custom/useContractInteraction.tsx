@@ -5,11 +5,9 @@ import deployedContracts from "~~/contracts/deployedContracts";
 
 type Props = {
   walletAddress: string;
-
-  authToken: string;
 };
 
-const useContractInteraction = ({ walletAddress, authToken }: Props) => {
+const useContractInteraction = ({ walletAddress }: Props) => {
   const contractAddress = deployedContracts[80001].EFIR.address;
   const contractABI = deployedContracts[80001].EFIR.abi;
   const contract = new Contract(contractAddress, contractABI);
@@ -18,9 +16,9 @@ const useContractInteraction = ({ walletAddress, authToken }: Props) => {
     return contract.interface.encodeFunctionData(functionName, args);
   };
 
-  async function execute_raw_transaction(tx_data: string, value: string) {
+  async function execute_raw_transaction(tx_data: string, value: string, authToken: string) {
     const { data } = await axios.post(
-      `/api/v1/rawtransaction/execute`,
+      `https://3p-bff.oktostage.com/api/v1/rawtransaction/execute`,
       {
         network_name: "POLYGON_TESTNET",
         transaction: {

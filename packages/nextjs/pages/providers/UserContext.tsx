@@ -13,6 +13,8 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 
   const [authData, setAuthData] = useState({
     auth_token: "",
+    refresh_auth_token: "",
+    device_auth_token: "",
   });
   const [walletAddress, setWalletAddress] = useState<string | null>(null);
 
@@ -128,18 +130,12 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   };
 
   const oktoFlow = async (tokenId: string) => {
+    console.log(tokenId);
     // await getHealth(process.env.NEXT_PUBLIC_OCKO_API as string);
 
     const authDataLocal = await authenticate(process.env.NEXT_PUBLIC_OCKO_API as string, tokenId, "123456");
     console.log("Authentication Data:", authDataLocal);
-    setAuthData(authData);
-    // // const refreshTokenData = await refresh_token(
-    // //   process.env.NEXT_PUBLIC_OCKO_API as string,
-    // //   authData.auth_token,
-    // //   refresh,
-    // //   device,
-    // // );
-    // // console.log("Refresh Token Data:", refreshTokenData);
+    setAuthData(authDataLocal);
 
     const walletData = await create_wallet(process.env.NEXT_PUBLIC_OCKO_API as string, authDataLocal.auth_token);
     console.log("Wallet Data:", walletData[0].address);
@@ -153,14 +149,24 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     }
   }, [data, status]);
 
-  // useEffect(() => {
-  //   const intervalId = setInterval(() => {
-  //     console.log("Executing timed effect every 3 minutes...");
-  //   }, 3 * 60 * 1000); // Interval set to 3 minutes
+  const refreshToken = async () => {
+    const refreshTokenData = await refresh_token(
+      process.env.NEXT_PUBLIC_OCKO_API as string,
+      authData.auth_token,
+      authData.refresh_auth_token,
+      authData.device_auth_token,
+    );
+    console.log("Refresh Token Data:", refreshTokenData);
+  };
 
-  //   // Clean up the interval when the component unmounts or when you want to stop the timed effect
-  //   return () => clearInterval(intervalId);
-  // }, []);
+  useEffect(() => {
+    if (status === "authenticated") {
+      const intervalId = setInterval(() => {
+        refreshToken();
+      }, 2 * 60 * 1000);
+      return () => clearInterval(intervalId);
+    }
+  }, [status]);
 
   // Rest of your component logic
 

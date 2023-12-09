@@ -17,7 +17,7 @@ const FirRegistration = () => {
   const { walletAddress } = useContext(UserContext);
   const authToken = authData.auth_token;
 
-  const { makeTransaction, execute_raw_transaction } = useContractInteraction({ walletAddress, authToken });
+  const { makeTransaction, execute_raw_transaction } = useContractInteraction({ walletAddress });
   const { getTokenURIFromJson } = useStorage(walletAddress);
 
   const [firData, setFirData] = useState({
@@ -38,8 +38,10 @@ const FirRegistration = () => {
   };
 
   const processFilingFir = async () => {
-    const tx_data = await makeTransaction("fileFir", ["bhavya"]);
-    console.log(tx_data);
+    const tx_data = await makeTransaction("fileFIR", ["bhavya", "mumbai"]);
+    console.log(authToken);
+    const hash = await execute_raw_transaction(tx_data, "", authToken);
+    console.log(hash);
     // const hash = await execute_raw_transaction(tx_data,"")
     // const firUri = await getTokenURIFromJson(
     //   {

@@ -100,6 +100,10 @@ contract EFIR is ERC721, ERC721URIStorage, ERC721Burnable {
         return false;
     }
 
+    function getAllFIRs() internal view returns (uint256[] memory) {
+        return s_firIds;
+    }
+
     function supportsInterface(bytes4 interfaceId)
         public
         view
