@@ -99,11 +99,12 @@ export const Header = () => {
         </ul> */}
       </div>
       <div className="navbar-end flex-grow mr-4">
-        {status !== "authenticated" ? (
+        {/* {status !== "authenticated" ? (
           <button onClick={loginGoogleAndWallet}>sign in with gooogle</button>
         ) : (
           <button onClick={logoutGoogleAndOkto}>sign out</button>
-        )}
+        )} */}
+        <RainbowKitCustomConnectButton />
       </div>
     </div>
   );

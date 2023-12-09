@@ -6,6 +6,7 @@ import { useAccount } from "wagmi";
 import deployedContracts from "~~/contracts/deployedContracts";
 import useContractInteraction from "~~/hooks/custom/useContractInteraction";
 import useStorage from "~~/hooks/custom/useLightHouse";
+import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 import { UserContext } from "~~/pages/providers/UserContext";
 
 const apiKey = process.env.NEXT_PUBLIC_LIGHTHOUSE_KEY;
@@ -15,6 +16,8 @@ const secretKey = process.env.NEXT_PUBLIC_LIGHTHOUSE_SECRET_KEY;
 const FirRegistration = () => {
   const { authData } = useContext(UserContext);
   const { walletAddress } = useContext(UserContext);
+  const [newTokenUri, setTokenUri] = useState("");
+  const [newLocation, setNewLocation] = useState("");
   const authToken = authData.auth_token;
 
   const { makeTransaction, execute_raw_transaction } = useContractInteraction({ walletAddress });
@@ -37,20 +40,32 @@ const FirRegistration = () => {
     });
   };
 
+  const { writeAsync, isLoading } = useScaffoldContractWrite({
+    contractName: "EFIR",
+    functionName: "fileFIR",
+    args: [newTokenUri, newLocation],
+    onBlockConfirmation: txnReceipt => {
+      console.log("📦 Transaction blockHash", txnReceipt.blockHash);
+    },
+  });
+
   const processFilingFir = async () => {
-    const tx_data = await makeTransaction("fileFIR", ["bhavya", "mumbai"]);
-    console.log(authToken);
-    const hash = await execute_raw_transaction(tx_data, "", authToken);
-    console.log(hash);
+    // const tx_data = await makeTransaction("fileFIR", ["bhavya", "mumbai"]);
+    // console.log(authToken);
+    // const hash = await execute_raw_transaction(tx_data, "", authToken);
+    // console.log(hash);
     // const hash = await execute_raw_transaction(tx_data,"")
-    // const firUri = await getTokenURIFromJson(
-    //   {
-    //     name: firData.complainantName,
-    //     district: firData.district,
-    //     description: firData.complaintShortDesc,
-    //   },
-    //   firData.complaintLongDesc,
-    // );
+    const firUri = await getTokenURIFromJson(
+      {
+        name: firData.complainantName,
+        district: firData.district,
+        description: firData.complaintShortDesc,
+      },
+      firData.complaintLongDesc,
+    );
+    await writeAsync({
+      args: [firUri, firData.district],
+    });
   };
 
   return (

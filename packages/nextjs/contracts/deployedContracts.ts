@@ -736,25 +736,36 @@ const deployedContracts = {
         },
       ],
       inheritedFunctions: {
-        approve: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
-        balanceOf: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
-        getApproved: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
-        isApprovedForAll: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
+        approve:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
+        balanceOf:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
+        getApproved:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
+        isApprovedForAll:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
         name: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
-        ownerOf: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
-        safeTransferFrom: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
-        setApprovalForAll: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
-        supportsInterface: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
-        symbol: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
-        tokenURI: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
-        transferFrom: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
+        ownerOf:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
+        safeTransferFrom:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
+        setApprovalForAll:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
+        supportsInterface:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
+        symbol:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
+        tokenURI:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
+        transferFrom:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
         burn: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
       },
     },
   },
   80001: {
     EFIR: {
-      address: "0xa0556a7c13f94F1A7cEC579a4adBBd9a9FCEbA0d",
+      address: "0x0A3170807ccC30aDbbA5C6487E755Ff0Ab12f3b0",
       abi: [
         {
           inputs: [],
@@ -1483,18 +1494,29 @@ const deployedContracts = {
         },
       ],
       inheritedFunctions: {
-        approve: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
-        balanceOf: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
-        getApproved: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
-        isApprovedForAll: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
+        approve:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
+        balanceOf:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
+        getApproved:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
+        isApprovedForAll:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
         name: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
-        ownerOf: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
-        safeTransferFrom: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
-        setApprovalForAll: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
-        supportsInterface: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
-        symbol: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
-        tokenURI: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
-        transferFrom: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
+        ownerOf:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
+        safeTransferFrom:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
+        setApprovalForAll:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
+        supportsInterface:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
+        symbol:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
+        tokenURI:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
+        transferFrom:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
         burn: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
       },
     },
@@ -2175,18 +2197,29 @@ const deployedContracts = {
         },
       ],
       inheritedFunctions: {
-        approve: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
-        balanceOf: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
-        getApproved: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
-        isApprovedForAll: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
+        approve:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
+        balanceOf:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
+        getApproved:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
+        isApprovedForAll:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
         name: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
-        ownerOf: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
-        safeTransferFrom: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
-        setApprovalForAll: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
-        supportsInterface: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
-        symbol: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
-        tokenURI: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
-        transferFrom: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
+        ownerOf:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
+        safeTransferFrom:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
+        setApprovalForAll:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
+        supportsInterface:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
+        symbol:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
+        tokenURI:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
+        transferFrom:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
         burn: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
       },
     },
