@@ -4217,6 +4217,7 @@ __metadata:
     jspdf-autotable: ^3.8.0
     next: ^13.1.6
     nextjs-progressbar: ^0.0.16
+    node-gyp: ^10.0.1
     postcss: ^8.4.16
     prettier: ^2.8.4
     qrcode.react: ^3.1.0
@@ -14810,7 +14811,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-gyp@npm:latest":
+"node-gyp@npm:^10.0.1, node-gyp@npm:latest":
   version: 10.0.1
   resolution: "node-gyp@npm:10.0.1"
   dependencies:
