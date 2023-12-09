@@ -1,7 +1,9 @@
 import React from "react";
 import OpenFIRCard from "./AllFIRCard";
+import ViewAllFirDrawer from "./ViewAllFirDrawer";
 
 const AllFIR = () => {
+  const [isViewFIROpen, setIsViewFIROpen] = React.useState(false);
   const dummyFIR = [
     {
       firID: "FIR-1",
@@ -19,9 +21,11 @@ const AllFIR = () => {
       <h1 className="w-full text-center text-2xl font-semibold mb-4">All FIR</h1>
       <div className="flex flex-wrap gap-3">
         {dummyFIR.map(fir => (
-          <OpenFIRCard key={fir.firID} Fir={fir} />
+          <OpenFIRCard setIsViewFIROpen={setIsViewFIROpen} key={fir.firID} Fir={fir} />
         ))}
       </div>
+
+      <ViewAllFirDrawer isViewFIROpen={isViewFIROpen} setIsViewFIROpen={setIsViewFIROpen} />
     </div>
   );
 };

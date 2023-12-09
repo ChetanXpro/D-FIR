@@ -123,7 +123,7 @@ Props) => {
                           setTaskToEdit(Fir);
                           //   setIsEditTaskDrawerOpen(!isEditTaskDrawerOpen);
                         }}
-                        className="block px-4 py-2 hover:bg-gray-100  "
+                        className="block px-4 py-2 cursor-pointer hover:bg-gray-100  "
                       >
                         Add Case Note
                       </div>
@@ -134,25 +134,26 @@ Props) => {
                           setTaskToEdit(Fir);
                           //   setIsEditTaskDrawerOpen(!isEditTaskDrawerOpen);
                         }}
-                        className="block px-4 py-2 hover:bg-gray-100  "
+                        className="block px-4 py-2 cursor-pointer hover:bg-gray-100  "
                       >
                         View FIR
+                      </div>
+                    </li>
+                    <li>
+                      <div
+                        onClick={() => {
+                          setTaskToEdit(Fir);
+                          //   setIsEditTaskDrawerOpen(!isEditTaskDrawerOpen);
+                        }}
+                        className="block px-4 py-2 cursor-pointer hover:bg-gray-100  "
+                      >
+                        Close FIR
                       </div>
                     </li>
                   </ul>
                 </div>
               )}
             </div>
-            <Select
-              isOpen={markbutton}
-              setIsOpen={setMarkButton}
-              label="Mark As"
-              list={FIRStatusList}
-              onSelect={(value: any) => {
-                console.log(value);
-                setMarkButton(false);
-              }}
-            />
           </div>
         </div>
       </div>

@@ -14,6 +14,7 @@ interface Props {
     ComplainantName: string;
     firshortdescription: string;
   };
+  setIsViewFIROpen: (isOpen: boolean) => void;
 
   //   setIsEditTaskDrawerOpen?: (isOpen: boolean) => void;
 
@@ -23,7 +24,9 @@ interface Props {
 
 const AllFIRCard = ({
   Fir,
+  setIsViewFIROpen,
 }: //   setIsEditTaskDrawerOpen,
+
 //   isViewTaskDrawerOpen,
 //   setIsViewTaskDrawerOpen,
 
@@ -131,6 +134,7 @@ Props) => {
                         onClick={() => {
                           setTaskToEdit(Fir);
                           //   setIsEditTaskDrawerOpen(!isEditTaskDrawerOpen);
+                          setIsViewFIROpen(true);
                         }}
                         className="block px-4 py-2 hover:bg-gray-100  "
                       >
