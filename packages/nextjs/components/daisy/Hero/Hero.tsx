@@ -14,9 +14,14 @@ export default function Hero(props: HeroProps) {
         <div className="max-w-md">
           <h1 className="text-5xl font-bold">{heading}</h1>
           <p className="py-6">{subHeading}</p>
-          <button className="btn btn-primary" onClick={() => onCtaClick && onCtaClick()}>
-            Get Started
-          </button>
+          <div className="flex justify-center space-x-4">
+            <button className="btn btn-primary" onClick={() => onCtaClick && onCtaClick()}>
+              Get Started
+            </button>
+            <button className="btn btn-primary" onClick={() => onCtaClick && onCtaClick()}>
+              Get Started
+            </button>
+          </div>
         </div>
       </div>
     </div>
