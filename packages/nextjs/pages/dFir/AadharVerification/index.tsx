@@ -10,7 +10,7 @@ export default function AadharVerification() {
 
   return (
     <>
-      <div>
+      <div className=" w-full h-full flex items-center justify-center flex-col p-10">
         <LogInWithAnonAadhaar />
         <p>{anonAadhaar?.status}</p>
       </div>

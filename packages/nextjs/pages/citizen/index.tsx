@@ -13,10 +13,6 @@ export default function Citizen() {
       title: "Register Complaint",
       component: <FirRegistration />,
     },
-    {
-      title: "Step 3",
-      component: <div>Step 3</div>,
-    },
   ];
   return <Stepper stepMap={stepMap} />;
 }
