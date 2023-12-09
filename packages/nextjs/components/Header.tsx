@@ -17,11 +17,6 @@ export const menuLinks: HeaderMenuLink[] = [
     label: "Home",
     href: "/",
   },
-  {
-    label: "Debug Contracts",
-    href: "/debug",
-    icon: <BugAntIcon className="h-4 w-4" />,
-  },
 ];
 
 export const HeaderMenuLinks = () => {
@@ -87,8 +82,8 @@ export const Header = () => {
           )}
         </div>
         <Link href="/" passHref className="hidden lg:flex items-center gap-2 ml-4 mr-6 shrink-0">
-          <div className="flex relative w-10 h-10">
-            <Image alt="SE2 logo" className="cursor-pointer" fill src="/logo.svg" />
+          <div className="flex relative w-14 h-14 scale-150  items-center justify-center bg-400">
+            <Image alt="SE2 logo" className="cursor-pointer scale-150" fill src="/logo.png" />
           </div>
           <div className="flex flex-col">
             <span className="font-bold leading-tight">D-FIR</span>

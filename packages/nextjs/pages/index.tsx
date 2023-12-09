@@ -8,14 +8,7 @@ const Home: NextPage = () => {
   return (
     <div className="flex flex-col h-screen w-full">
       <MetaHeader />
-      <Hero
-        heading="Welome to D-Fir"
-        subHeading="Here you can report your FIR with total trust"
-        primaryBtnText="Citizen"
-        secondaryBtnText="Police Dept"
-        onPrimaryClick={() => router.push("citizen")}
-        onSecondaryClick={() => router.push("police")}
-      />
+      <Hero />
     </div>
   );
 };
