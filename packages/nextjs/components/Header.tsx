@@ -1,12 +1,11 @@
-import React, { useCallback, useContext, useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { FaucetButton, RainbowKitCustomConnectButton } from "./scaffold-eth";
-import { signIn, signOut, useSession } from "next-auth/react";
-import { Bars3Icon, BugAntIcon } from "@heroicons/react/24/outline";
+import { RainbowKitCustomConnectButton } from "./scaffold-eth";
+import { useSession } from "next-auth/react";
+import { Bars3Icon } from "@heroicons/react/24/outline";
 import { useOutsideClick } from "~~/hooks/scaffold-eth";
-import { UserContext } from "~~/pages/providers/AuthContext";
 
 type HeaderMenuLink = {
   label: string;
@@ -51,7 +50,6 @@ export const HeaderMenuLinks = () => {
  * Site header
  */
 export const Header = () => {
-  const { loginGoogleAndWallet, logoutGoogleAndOkto } = useContext(UserContext);
   const { data, status } = useSession();
   console.log(data, status);
 
@@ -63,7 +61,7 @@ export const Header = () => {
   );
 
   return (
-    <div className="sticky lg:static top-0 navbar bg-base-100 min-h-0 flex-shrink-0 justify-between z-20 shadow-md shadow-secondary px-0 sm:px-2">
+    <div className="sticky lg:static top-0 navbar bg-app-gray-100 min-h-0 flex-shrink-0 justify-between z-20 shadow-md shadow-secondary px-0 sm:px-2">
       <div className="navbar-start w-auto lg:w-1/2">
         <div className="lg:hidden dropdown" ref={burgerMenuRef}>
           <label
@@ -87,18 +85,18 @@ export const Header = () => {
             </ul>
           )}
         </div>
-        <Link href="/" passHref className="hidden lg:flex items-center gap-2 ml-4 mr-6 shrink-0">
+        <Link href="/" passHref className="hidden lg:flex items-center gap-1 ml-4 mr-6 shrink-0">
           <div className="flex relative w-14 h-14 scale-150  items-center justify-center bg-400">
-            <Image alt="SE2 logo" className="cursor-pointer scale-150" fill src="/logo.png" />
+            <Image alt="logo" className="cursor-pointer px-4" fill src="/logo.svg" />
           </div>
           <div className="flex flex-col">
-            <span className="font-bold leading-tight">D-FIR</span>
+            <span className="font-bold leading-tight text-2xl text-[#e9e9e9]">D-FIR</span>
             <span className="text-xs"></span>
           </div>
         </Link>
-        <ul className="hidden lg:flex lg:flex-nowrap menu menu-horizontal px-1 gap-2">
+        {/* <ul className="hidden lg:flex lg:flex-nowrap menu menu-horizontal px-1 gap-2">
           <HeaderMenuLinks />
-        </ul>
+        </ul> */}
       </div>
       <div className="navbar-end flex-grow mr-4">
         {/* {status !== "authenticated" ? (
