@@ -1,7 +1,9 @@
 import React from "react";
+import AddCaseNoteDrawer from "./AddCaseNoteDrawer";
 import OpenFIRCard from "./OpenFirCard";
 
 const OpenFIR = () => {
+  const [isAddFIRNoteOpen, setIsAddFIRNoteOpen] = React.useState(false);
   const dummyFIR = [
     {
       firID: "FIR-1",
@@ -19,9 +21,10 @@ const OpenFIR = () => {
       <h1 className="w-full text-center text-2xl font-semibold mb-4">Opened FIR</h1>
       <div className="flex flex-wrap gap-3">
         {dummyFIR.map(fir => (
-          <OpenFIRCard key={fir.firID} Fir={fir} />
+          <OpenFIRCard key={fir.firID} setIsAddFIRNoteOpen={setIsAddFIRNoteOpen} Fir={fir} />
         ))}
       </div>
+      <AddCaseNoteDrawer isAddFIRNoteOpen={isAddFIRNoteOpen} setIsAddFIRNoteOpen={setIsAddFIRNoteOpen} />
     </div>
   );
 };

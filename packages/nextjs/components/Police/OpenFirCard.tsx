@@ -17,6 +17,8 @@ interface Props {
     firshortdescription: string;
   };
 
+  setIsAddFIRNoteOpen: (isOpen: boolean) => void;
+
   //   setIsEditTaskDrawerOpen?: (isOpen: boolean) => void;
 
   //   isViewTaskDrawerOpen?: boolean;
@@ -25,6 +27,7 @@ interface Props {
 
 const OpenFIRCard = ({
   Fir,
+  setIsAddFIRNoteOpen,
 }: //   setIsEditTaskDrawerOpen,
 //   isViewTaskDrawerOpen,
 //   setIsViewTaskDrawerOpen,
@@ -121,6 +124,7 @@ Props) => {
                       <div
                         onClick={() => {
                           setTaskToEdit(Fir);
+                          setIsAddFIRNoteOpen(true);
                           //   setIsEditTaskDrawerOpen(!isEditTaskDrawerOpen);
                         }}
                         className="block px-4 py-2 cursor-pointer hover:bg-gray-100  "
