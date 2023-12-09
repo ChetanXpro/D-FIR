@@ -165,7 +165,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   // Rest of your component logic
 
   return (
-    <UserContext.Provider value={{ data, status, walletAddress, loginGoogleAndWallet, logoutGoogleAndOkto }}>
+    <UserContext.Provider value={{ authData, walletAddress, loginGoogleAndWallet, logoutGoogleAndOkto }}>
       {children}
     </UserContext.Provider>
   );

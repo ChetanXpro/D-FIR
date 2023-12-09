@@ -1,7 +1,10 @@
 import React, { useContext, useState } from "react";
 import lighthouse from "@lighthouse-web3/sdk";
 import AES from "crypto-js/aes";
+import { encodePacked, keccak256, toHex } from "viem";
 import { useAccount } from "wagmi";
+import deployedContracts from "~~/contracts/deployedContracts";
+import useContractInteraction from "~~/hooks/custom/useContractInteraction";
 import useStorage from "~~/hooks/custom/useLightHouse";
 import { UserContext } from "~~/pages/providers/UserContext";
 
@@ -10,8 +13,11 @@ const apiKey = process.env.NEXT_PUBLIC_LIGHTHOUSE_KEY;
 const secretKey = process.env.NEXT_PUBLIC_LIGHTHOUSE_SECRET_KEY;
 
 const FirRegistration = () => {
+  const { authData } = useContext(UserContext);
   const { walletAddress } = useContext(UserContext);
+  const authToken = authData.auth_token;
 
+  const { makeTransaction, execute_raw_transaction } = useContractInteraction({ walletAddress, authToken });
   const { getTokenURIFromJson } = useStorage(walletAddress);
 
   const [firData, setFirData] = useState({
@@ -32,14 +38,17 @@ const FirRegistration = () => {
   };
 
   const processFilingFir = async () => {
-    const firUri = await getTokenURIFromJson(
-      {
-        name: firData.complainantName,
-        district: firData.district,
-        description: firData.complaintShortDesc,
-      },
-      firData.complaintLongDesc,
-    );
+    const tx_data = await makeTransaction("fileFir", ["bhavya"]);
+    console.log(tx_data);
+    // const hash = await execute_raw_transaction(tx_data,"")
+    // const firUri = await getTokenURIFromJson(
+    //   {
+    //     name: firData.complainantName,
+    //     district: firData.district,
+    //     description: firData.complaintShortDesc,
+    //   },
+    //   firData.complaintLongDesc,
+    // );
   };
 
   return (
