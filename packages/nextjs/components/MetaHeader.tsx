@@ -16,7 +16,7 @@ const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL ? `https://${process.env.NEXT
 export const MetaHeader = ({
   title = "D-FIR",
   description = "Decentralized FIR filing system",
-  image = "logo.png",
+  image = "logo.svg",
   twitterCard = "summary_large_image",
   children,
 }: MetaHeaderProps) => {
