@@ -1,7 +1,15 @@
 import React, { useState } from "react";
-import jsPDF from "jspdf";
+import lighthouse from "@lighthouse-web3/sdk";
+import AES from "crypto-js/aes";
+import { useAccount } from "wagmi";
 
+// import jsPDF from "jspdf";
+
+const apiKey = process.env.NEXT_PUBLIC_LIGHTHOUSE_KEY;
+
+const secretKey = process.env.NEXT_PUBLIC_LIGHTHOUSE_SECRET_KEY;
 const FirRegistration = () => {
+  const { address } = useAccount();
   const [firData, setFirData] = useState({
     district: "Borivali",
     policeStation: "Mumbai",
@@ -39,52 +47,62 @@ const FirRegistration = () => {
       [name]: value,
     });
   };
-  function camelCaseToWords(str: string) {
-    // First, insert spaces before capital letters and make everything lowercase
-    const words = str.replace(/([A-Z])/g, " $1").toLowerCase();
+  // function camelCaseToWords(str: string) {
+  //   // First, insert spaces before capital letters and make everything lowercase
+  //   const words = str.replace(/([A-Z])/g, " $1").toLowerCase();
 
-    // Then, capitalize the first letter of each word
-    return words
-      .split(" ")
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ");
+  //   // Then, capitalize the first letter of each word
+  //   return words
+  //     .split(" ")
+  //     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+  //     .join(" ");
+  // }
+
+  // const generatePDF = () => {
+  //   const doc = new jsPDF();
+  //   let y = 10;
+
+  //   // Adding a title
+  //   doc.setFontSize(16);
+  //   doc.text("FIR Report", 10, y);
+  //   y += 10;
+
+  //   // Setting the font size for content
+  //   doc.setFontSize(12);
+
+  //   // Create a pdf document with firData using loop
+  //   Object.entries(firData).forEach(([key, value]) => {
+  //     if (y >= 280) {
+  //       // Check if new page is needed
+  //       doc.addPage();
+  //       y = 10; // Reset Y position for new page
+  //     }
+
+  //     const line = `${camelCaseToWords(key)}: ${value}`;
+  //     // Wrap text if it's too long
+  //     doc.text(line, 10, y);
+  //     y += 10; // Increment y position for next line
+  //   });
+
+  //   // Error handling (Example: try-catch block)
+  //   try {
+  //     // Save the PDF
+  //     doc.save("FIR_Report.pdf");
+  //   } catch (error) {
+  //     console.error("Error generating PDF: ", error);
+  //   }
+  // };
+
+  // async function uploadForm(text: string, apiKey: string, name: string) {
+  //   const response = await lighthouse.uploadText(text, apiKey, name);
+  //   console.log(response);
+  // }
+
+  async function uploadEncryptedFormOnLightHouse(text: string, apiKey: string) {
+    const signedMessage = AES.encrypt("dFir", secretKey as string).toString();
+    const response = await lighthouse.textUploadEncrypted(signedMessage, apiKey, address as string, "SIGNATURE/JWT");
+    console.log(response);
   }
-
-  const generatePDF = () => {
-    const doc = new jsPDF();
-    let y = 10;
-
-    // Adding a title
-    doc.setFontSize(16);
-    doc.text("FIR Report", 10, y);
-    y += 10;
-
-    // Setting the font size for content
-    doc.setFontSize(12);
-
-    // Create a pdf document with firData using loop
-    Object.entries(firData).forEach(([key, value]) => {
-      if (y >= 280) {
-        // Check if new page is needed
-        doc.addPage();
-        y = 10; // Reset Y position for new page
-      }
-
-      const line = `${camelCaseToWords(key)}: ${value}`;
-      // Wrap text if it's too long
-      doc.text(line, 10, y);
-      y += 10; // Increment y position for next line
-    });
-
-    // Error handling (Example: try-catch block)
-    try {
-      // Save the PDF
-      doc.save("FIR_Report.pdf");
-    } catch (error) {
-      console.error("Error generating PDF: ", error);
-    }
-  };
-
   return (
     <div className="flex flex-col items-start w-full gap-y-3 p-8">
       <h1 className="text-[#000000] dark:text-white text-bold text-3xl tracking-[1.5px] ">
@@ -339,7 +357,7 @@ const FirRegistration = () => {
       />
       <button
         className="linear mt-2 w-full rounded-xl bg-brand-500 py-[12px] text-base font-medium text-white transition duration-200 hover:bg-brand-600 active:bg-brand-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200"
-        onClick={generatePDF}
+        onClick={() => uploadEncryptedFormOnLightHouse(JSON.stringify(firData), apiKey as string)}
       >
         Upload Data
       </button>
