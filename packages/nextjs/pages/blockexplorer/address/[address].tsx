@@ -60,7 +60,7 @@ const AddressPage = ({ address, contractData }: PageProps) => {
     <div className="m-10 mb-20">
       <div className="flex justify-start mb-5">
         <button className="btn btn-sm btn-primary" onClick={() => router.back()}>
-          Back
+          back
         </button>
       </div>
       <div className="col-span-5 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
