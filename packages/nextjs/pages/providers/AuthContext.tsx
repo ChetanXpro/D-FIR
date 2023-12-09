@@ -129,11 +129,11 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     console.log("Logout Data:", logoutData);
   };
 
-  useEffect(() => {
-    if (status === "authenticated") {
-      oktoFlow(data?.tokenId);
-    }
-  }, [data]);
+  // useEffect(() => {
+  //   if (status === "authenticated") {
+  //     oktoFlow(data?.tokenId);
+  //   }
+  // }, [data]);
 
   // Rest of your component logic
 

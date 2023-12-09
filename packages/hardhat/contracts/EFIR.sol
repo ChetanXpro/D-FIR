@@ -15,25 +15,28 @@ contract EFIR is ERC721, ERC721URIStorage, ERC721Burnable {
     uint256 private _currentFIRId;
     uint256[] private s_firIds;
     mapping(uint256 => address) public s_firApprovedToOfficer;
+    mapping(uint256 => string) public s_firIdToLocation;
     mapping(uint256 => address) public s_assignedOfficer;
     mapping(uint256 => string) private previousOwnerNames;
     mapping(uint256 => FIRstate) private s_firIdToStatus;
 
-    event FiledFIR(address indexed owner, uint256 firId, uint256 timeRecorded);
+    event FiledFIR(address indexed owner, uint256 firId, uint256 timeRecorded, string indexed location);
     event AssignedOfficer(address indexed officer, uint256 firId, uint256 timeRecorded);
     event UpdatedFIR(address indexed officer, uint256 firId, uint256 timeRecorded, string tokenUri);
+    event ClosedFIR(address indexed officer, uint256 firId, uint256 timeRecorded);
 
     constructor() ERC721("EFIRToken", "EFIRT") {
         _currentFIRId = 0;
     }
 
-    function fileFIR(string memory tokenUri) public returns (uint256) {
+    function fileFIR(string memory tokenUri, string memory location) public returns (uint256) {
         uint256 newFIRId = _currentFIRId++;
         _mint(msg.sender, newFIRId);
         _setTokenURI(newFIRId, tokenUri);
         s_firIds.push(newFIRId);
         s_firIdToStatus[newFIRId] = FIRstate.FILED;
-        emit FiledFIR(msg.sender, newFIRId, block.timestamp);
+        s_firIdToLocation[newFIRId] = location;
+        emit FiledFIR(msg.sender, newFIRId, block.timestamp, location);
         return newFIRId;
     }
 
@@ -67,6 +70,7 @@ contract EFIR is ERC721, ERC721URIStorage, ERC721Burnable {
                 break; // Exit the loop once the swap is done
             }
         }
+        emit ClosedFIR(s_assignedOfficer[firId], firId, block.timestamp);
         s_assignedOfficer[firId] = address(0);
         s_firApprovedToOfficer[firId] = address(0);
         _burn(firId);

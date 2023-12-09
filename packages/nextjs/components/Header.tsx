@@ -2,6 +2,7 @@ import React, { useCallback, useContext, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { FaucetButton, RainbowKitCustomConnectButton } from "./scaffold-eth";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { Bars3Icon, BugAntIcon } from "@heroicons/react/24/outline";
 import { useOutsideClick } from "~~/hooks/scaffold-eth";
@@ -105,14 +106,14 @@ export const Header = () => {
         </ul>
       </div>
       <div className="navbar-end flex-grow mr-4">
-        {status !== "authenticated" ? (
+        {/* {status !== "authenticated" ? (
           <button onClick={loginGoogleAndWallet}>sign in with gooogle</button>
         ) : (
           <button onClick={logoutGoogleAndOkto}>sign out</button>
-        )}
+        )} */}
 
-        {/* <RainbowKitCustomConnectButton /> */}
-        {/* <FaucetButton /> */}
+        <RainbowKitCustomConnectButton />
+        <FaucetButton />
       </div>
     </div>
   );
