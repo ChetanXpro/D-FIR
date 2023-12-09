@@ -29,4 +29,4 @@ export const authOptions = {
   },
 } satisfies AuthOptions;
 
-export default NextAuth(authOptions);
+export default NextAuth(authOptions as any);
