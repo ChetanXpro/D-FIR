@@ -1,22 +1,25 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import lighthouse from "@lighthouse-web3/sdk";
 import AES from "crypto-js/aes";
 import { useAccount } from "wagmi";
+import useStorage from "~~/hooks/custom/useLightHouse";
+import { UserContext } from "~~/pages/providers/UserContext";
 
 const apiKey = process.env.NEXT_PUBLIC_LIGHTHOUSE_KEY;
 
 const secretKey = process.env.NEXT_PUBLIC_LIGHTHOUSE_SECRET_KEY;
 
 const FirRegistration = () => {
-  const { address } = useAccount();
+  const { walletAddress } = useContext(UserContext);
+
+  const { getTokenURIFromJson } = useStorage(walletAddress);
+
   const [firData, setFirData] = useState({
     district: "Borivali",
-    year: "2023",
     complaintShortDesc: "Theft",
     complaintLongDesc: "The suspect stole my wallet in front of Borivali station and escaped on a bike",
     complainantName: "Jignesh Patel",
     complaintPhone: "9765432109",
-    complaintEmail: "jigneshpatel@gmail.com",
     complaintGender: "Male",
   });
 
@@ -28,11 +31,17 @@ const FirRegistration = () => {
     });
   };
 
-  async function uploadEncryptedFormOnLightHouse(text: string, apiKey: string) {
-    const signedMessage = AES.encrypt("dFir", secretKey as string).toString();
-    const response = await lighthouse.textUploadEncrypted(signedMessage, apiKey, address as string, "SIGNATURE/JWT");
-    console.log(response);
-  }
+  const processFilingFir = async () => {
+    const firUri = await getTokenURIFromJson(
+      {
+        name: firData.complainantName,
+        district: firData.district,
+        description: firData.complaintShortDesc,
+      },
+      firData.complaintLongDesc,
+    );
+  };
+
   return (
     <div className="flex flex-col items-start border-1 border-white  w-full gap-y-3  p-8">
       <h1 className="text-[#000000] dark:text-white text-bold text-3xl tracking-[1.5px] mt-[2%] ">
@@ -57,15 +66,6 @@ const FirRegistration = () => {
         onChange={handleInputChange}
         name="complaintPhone"
         value={firData.complaintPhone}
-      />
-      <h1 className="text-bold text-xl tracking-[1.5px] ">Email</h1>
-      <input
-        type="text"
-        placeholder="Type here"
-        className="input input-bordered input-success w-full"
-        onChange={handleInputChange}
-        name="complaintEmail"
-        value={firData.complaintEmail}
       />
       <h1 className="text-bold text-xl tracking-[1.5px] ">Gender</h1>
       <input
@@ -107,10 +107,7 @@ const FirRegistration = () => {
         value={firData.complaintShortDesc}
       />
 
-      <button
-        className="btn btn-primary btn-outline w-full mt-10"
-        onClick={() => uploadEncryptedFormOnLightHouse(JSON.stringify(firData), apiKey as string)}
-      >
+      <button className="btn btn-primary btn-outline w-full mt-10" onClick={processFilingFir}>
         Submit Your FIR
       </button>
     </div>

@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useContext, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -6,6 +6,7 @@ import { RainbowKitCustomConnectButton } from "./scaffold-eth";
 import { useSession } from "next-auth/react";
 import { Bars3Icon } from "@heroicons/react/24/outline";
 import { useOutsideClick } from "~~/hooks/scaffold-eth";
+import { UserContext } from "~~/pages/providers/UserContext";
 
 type HeaderMenuLink = {
   label: string;
@@ -51,7 +52,7 @@ export const HeaderMenuLinks = () => {
  */
 export const Header = () => {
   const { data, status } = useSession();
-
+  const { loginGoogleAndWallet, logoutGoogleAndOkto } = useContext(UserContext);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const burgerMenuRef = useRef<HTMLDivElement>(null);
   useOutsideClick(

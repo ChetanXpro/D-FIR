@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import type { AppProps } from "next/app";
-import UserProvider from "./providers/AuthContext";
+import UserProvider from "./providers/UserContext";
 import { RainbowKitProvider, darkTheme, lightTheme } from "@rainbow-me/rainbowkit";
 import "@rainbow-me/rainbowkit/styles.css";
 import { AnonAadhaarProvider } from "anon-aadhaar-react";
