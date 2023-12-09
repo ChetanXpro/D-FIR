@@ -3,11 +3,15 @@ import React from "react";
 export interface HeroProps {
   heading: string;
   subHeading: string;
-  onCtaClick: () => void;
+  primaryBtnText: string;
+  secondaryBtnText: string;
+  onPrimaryClick?: () => void;
+  onSecondaryClick?: () => void;
 }
 
 export default function Hero(props: HeroProps) {
-  const { heading, subHeading, onCtaClick } = props;
+  const { heading, subHeading, primaryBtnText, secondaryBtnText, onPrimaryClick, onSecondaryClick } = props;
+
   return (
     <div className="hero h-full bg-base-200 items-center justify-center mt-16">
       <div className="hero-content text-center">
@@ -15,11 +19,11 @@ export default function Hero(props: HeroProps) {
           <h1 className="text-5xl font-bold">{heading}</h1>
           <p className="py-6">{subHeading}</p>
           <div className="flex justify-center space-x-4">
-            <button className="btn btn-primary" onClick={() => onCtaClick && onCtaClick()}>
-              Get Started
+            <button className="btn btn-primary" onClick={() => onPrimaryClick && onPrimaryClick()}>
+              {primaryBtnText}
             </button>
-            <button className="btn btn-primary" onClick={() => onCtaClick && onCtaClick()}>
-              Get Started
+            <button className="btn btn-secondary" onClick={() => onSecondaryClick && onSecondaryClick()}>
+              {secondaryBtnText}
             </button>
           </div>
         </div>

@@ -27,9 +27,9 @@ const ScaffoldEthApp = ({ Component, pageProps }: AppProps) => {
 
   return (
     <>
-      <div className="flex flex-col min-h-screen">
+      <div className="flex flex-col min-h-screen ">
         <Header />
-        <main className="relative flex flex-col flex-1">
+        <main className="relative flex flex-col flex-1 px-4 py-8 space-y-4">
           <Component {...pageProps} />
         </main>
         <Footer />
