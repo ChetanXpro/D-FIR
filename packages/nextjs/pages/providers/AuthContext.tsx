@@ -14,6 +14,14 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   const [authData, setAuthData] = useState({});
   const [contractAddress, setContractAddress] = useState<string | null>(null);
 
+  async function getHealth(api_key: string) {
+    await axios.get("https://3p-bff.oktostage.com/health", {
+      headers: {
+        "x-api-key": api_key,
+      },
+    });
+  }
+
   async function authenticate(api_key: string, idToken: string, pin: string) {
     let { data } = await axios.post(
       `https://3p-bff.oktostage.com/api/v1/authenticate`,
@@ -24,6 +32,8 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
         headers: {
           "Content-Type": "application/json",
           "x-api-key": api_key,
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH",
         },
       },
     );
@@ -110,23 +120,24 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   };
 
   const oktoFlow = async (tokenId: string) => {
-    console.log(tokenId);
-    const authData = await authenticate(process.env.NEXT_PUBLIC_OCKO_API as string, tokenId, "123456");
-    console.log("Authentication Data:", authData);
-    setAuthData(authData);
-    // const refreshTokenData = await refresh_token(
-    //   process.env.NEXT_PUBLIC_OCKO_API as string,
-    //   authData.auth_token,
-    //   refresh,
-    //   device,
-    // );
-    // console.log("Refresh Token Data:", refreshTokenData);
+    await getHealth(process.env.NEXT_PUBLIC_OCKO_API as string);
+    // console.log(tokenId);
+    // const authData = await authenticate(process.env.NEXT_PUBLIC_OCKO_API as string, tokenId, "123456");
+    // console.log("Authentication Data:", authData);
+    // setAuthData(authData);
+    // // const refreshTokenData = await refresh_token(
+    // //   process.env.NEXT_PUBLIC_OCKO_API as string,
+    // //   authData.auth_token,
+    // //   refresh,
+    // //   device,
+    // // );
+    // // console.log("Refresh Token Data:", refreshTokenData);
 
-    const walletData = await create_wallet(process.env.NEXT_PUBLIC_OCKO_API as string, authData.auth_token);
-    console.log("Wallet Data:", walletData);
+    // const walletData = await create_wallet(process.env.NEXT_PUBLIC_OCKO_API as string, authData.auth_token);
+    // console.log("Wallet Data:", walletData);
 
-    const logoutData = await logout(process.env.NEXT_PUBLIC_OCKO_API as string, authData.auth_token);
-    console.log("Logout Data:", logoutData);
+    // const logoutData = await logout(process.env.NEXT_PUBLIC_OCKO_API as string, authData.auth_token);
+    // console.log("Logout Data:", logoutData);
   };
 
   // useEffect(() => {
