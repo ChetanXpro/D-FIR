@@ -14,7 +14,7 @@ const stats = {
 const StatisticsPage: React.FC = () => {
   return (
     <div className="min-h-screen  px-4 sm:px-6 lg:px-8">
-      <h1 className="text-4xl font-extrabold text-center text-gray-900 dark:text-white">FIR Statistics Dashboard</h1>
+      <h1 className="text-4xl font-bold text-center text-gray-900 dark:text-white">FIR Statistics Dashboard</h1>
 
       <div className="mt-10 grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
         {/* Stat Cards */}
@@ -25,7 +25,7 @@ const StatisticsPage: React.FC = () => {
           borderColor="border-blue-500"
         />
         <StatCard
-          title="FIRs Resolved This Month"
+          title="FIRs Resolved/Month"
           value={stats.totalResolvedThisMonth}
           icon="✔️"
           borderColor="border-green-500"
