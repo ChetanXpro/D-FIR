@@ -1,4 +1,5 @@
 import Hero from "./Hero";
 import Stepper from "./Stepper";
+import Table from "./Table";
 
-export { Hero, Stepper };
+export { Hero, Stepper, Table };
