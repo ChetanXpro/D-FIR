@@ -50,6 +50,7 @@ module.exports = {
           "neutral-content": "#385",
           "app-gray-100": "#45494a",
           "app-gray-200": "#1f1f1f",
+          "app-gray-300": "#2b2b2b",
           "base-100": "#007ac1",
           "base-200": "#1e1e1e",
           "base-300": "#212638",

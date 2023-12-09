@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import type { AppProps } from "next/app";
+import { Inter } from "next/font/google";
 import UserProvider from "./providers/AuthContext";
 import { RainbowKitProvider, darkTheme, lightTheme } from "@rainbow-me/rainbowkit";
 import "@rainbow-me/rainbowkit/styles.css";
@@ -18,6 +19,11 @@ import { wagmiConfig } from "~~/services/web3/wagmiConfig";
 import { appChains } from "~~/services/web3/wagmiConnectors";
 import "~~/styles/globals.css";
 
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+});
+
 const ScaffoldEthApp = ({ Component, pageProps }: AppProps) => {
   const price = useNativeCurrencyPrice();
   const setNativeCurrencyPrice = useGlobalState(state => state.setNativeCurrencyPrice);
@@ -31,7 +37,7 @@ const ScaffoldEthApp = ({ Component, pageProps }: AppProps) => {
   return (
     <SessionProvider session={pageProps.session}>
       <UserProvider>
-        <div className="flex flex-col min-h-screen ">
+        <div className={`flex flex-col min-h-screen ${inter.className}`}>
           <Header />
           <main className="relative flex flex-col flex-1 px-4 py-8 space-y-4 bg-app-gray-200">
             <Component {...pageProps} />
