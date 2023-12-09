@@ -53,7 +53,6 @@ export const HeaderMenuLinks = () => {
 export const Header = () => {
   const { loginGoogleAndWallet, logoutGoogleAndOkto } = useContext(UserContext);
   const { data, status } = useSession();
-  console.log(data, status);
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const burgerMenuRef = useRef<HTMLDivElement>(null);
@@ -101,14 +100,11 @@ export const Header = () => {
         </ul>
       </div>
       <div className="navbar-end flex-grow mr-4">
-        {/* {status !== "authenticated" ? (
+        {status !== "authenticated" ? (
           <button onClick={loginGoogleAndWallet}>sign in with gooogle</button>
         ) : (
           <button onClick={logoutGoogleAndOkto}>sign out</button>
-        )} */}
-
-        <RainbowKitCustomConnectButton />
-        {/* <FaucetButton /> */}
+        )}
       </div>
     </div>
   );

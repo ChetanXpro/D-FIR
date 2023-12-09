@@ -9,8 +9,8 @@ const secretKey = process.env.NEXT_PUBLIC_LIGHTHOUSE_SECRET_KEY;
 const useStorage = (address: AddressType) => {
   const signerAddress = address;
 
-  const uploadEncryptedDataOnLighthouse = async (json: object): Promise<string> => {
-    const stringToStore = JSON.stringify(json);
+  const uploadEncryptedDataOnLighthouse = async (longerDescription: object): Promise<string> => {
+    const stringToStore = JSON.stringify(longerDescription);
     const signedMessage = AES.encrypt(stringToStore, secretKey as string).toString();
     const response = await lighthouse.textUploadEncrypted(
       signedMessage,
@@ -22,6 +22,8 @@ const useStorage = (address: AddressType) => {
     fileHash = response.data.hash;
     return fileHash;
   };
+
+  const getTokenURIFromJson = async (shorterDescription:object,)
 
   return {
     uploadEncryptedDataOnLighthouse,

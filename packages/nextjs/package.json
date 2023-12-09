@@ -25,6 +25,7 @@
     "blo": "^1.0.1",
     "crypto-js": "^4.2.0",
     "daisyui": "^3.5.1",
+    "ethers": "^6.9.0",
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.8.0",
     "next": "^13.1.6",

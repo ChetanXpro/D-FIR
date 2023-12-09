@@ -4232,6 +4232,7 @@ __metadata:
     eslint-config-next: ^13.1.6
     eslint-config-prettier: ^8.5.0
     eslint-plugin-prettier: ^4.2.1
+    ethers: ^6.9.0
     jspdf: ^2.5.1
     jspdf-autotable: ^3.8.0
     next: ^13.1.6
@@ -10380,7 +10381,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ethers@npm:^6.7.1":
+"ethers@npm:^6.7.1, ethers@npm:^6.9.0":
   version: 6.9.0
   resolution: "ethers@npm:6.9.0"
   dependencies:

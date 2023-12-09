@@ -1,15 +1,29 @@
 import { expect } from "chai";
 import { ethers } from "hardhat";
+import { Address } from "hardhat-deploy/types";
 import { EFIR } from "../typechain-types";
 
 describe("EFIR", function () {
-  // We define a fixture to reuse the same setup in every test.
+  let EFIRToken;
+  let efirToken: any;
+  let owner: any;
+  let officer;
 
-  let efir: EFIR;
-  before(async () => {
-    const [owner] = await ethers.getSigners();
-    const EFIRFactory = await ethers.getContractFactory("EFIR");
-    efir = (await EFIRFactory.deploy(owner.address)) as EFIR;
-    await efir.deployed();
+  beforeEach(async function () {
+    [owner, officer] = await ethers.getSigners();
+
+    EFIRToken = await ethers.getContractFactory("EFIR");
+    efirToken = await EFIRToken.deploy();
+    await efirToken.deployed();
+  });
+
+  it("should create an FIR and emit OpenedFIR event", async function () {
+    const location = "Some Location";
+    const tokenUri = "https://example.com/metadata.json";
+
+    const transaction = await efirToken.fileFIR(tokenUri, location);
+
+    const receipt = await transaction.wait();
+    console.log(receipt);
   });
 });

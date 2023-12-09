@@ -8,8 +8,9 @@ import {Base64} from "@openzeppelin/contracts/utils/Base64.sol";
 
 contract EFIR is ERC721, ERC721URIStorage, ERC721Burnable {
     enum FIRstate {
-        FILED,
-        ASSIGNEDPOLICE
+        OPENED,
+        INVESTIGATING,
+        CLOSED
     }
 
     uint256 private _currentFIRId;
@@ -20,7 +21,7 @@ contract EFIR is ERC721, ERC721URIStorage, ERC721Burnable {
     mapping(uint256 => string) private previousOwnerNames;
     mapping(uint256 => FIRstate) private s_firIdToStatus;
 
-    event FiledFIR(address indexed owner, uint256 firId, uint256 timeRecorded, string indexed location);
+    event OpenedFIR(address indexed owner, uint256 firId, uint256 timeRecorded, string indexed location);
     event AssignedOfficer(address indexed officer, uint256 firId, uint256 timeRecorded);
     event UpdatedFIR(address indexed officer, uint256 firId, uint256 timeRecorded, string tokenUri);
     event ClosedFIR(address indexed officer, uint256 firId, uint256 timeRecorded);
@@ -34,9 +35,9 @@ contract EFIR is ERC721, ERC721URIStorage, ERC721Burnable {
         _mint(msg.sender, newFIRId);
         _setTokenURI(newFIRId, tokenUri);
         s_firIds.push(newFIRId);
-        s_firIdToStatus[newFIRId] = FIRstate.FILED;
+        s_firIdToStatus[newFIRId] = FIRstate.OPENED;
         s_firIdToLocation[newFIRId] = location;
-        emit FiledFIR(msg.sender, newFIRId, block.timestamp, location);
+        emit OpenedFIR(msg.sender, newFIRId, block.timestamp, location);
         return newFIRId;
     }
 
@@ -49,7 +50,7 @@ contract EFIR is ERC721, ERC721URIStorage, ERC721Burnable {
         require(_exists(firId), "ERC721: FIR does not exist");
         address approvedOfficer = s_firApprovedToOfficer[firId];
         require(approvedOfficer == msg.sender, "ERC721: Not approved officer");
-        s_firIdToStatus[firId] = FIRstate.ASSIGNEDPOLICE;
+        s_firIdToStatus[firId] = FIRstate.INVESTIGATING;
         s_assignedOfficer[firId] = approvedOfficer;
         _transfer(msg.sender, approvedOfficer, firId);
         emit AssignedOfficer(approvedOfficer, firId, block.timestamp);
@@ -73,6 +74,7 @@ contract EFIR is ERC721, ERC721URIStorage, ERC721Burnable {
         emit ClosedFIR(s_assignedOfficer[firId], firId, block.timestamp);
         s_assignedOfficer[firId] = address(0);
         s_firApprovedToOfficer[firId] = address(0);
+        s_firIdToStatus[firId] = FIRstate.CLOSED;
         _burn(firId);
     }
 
@@ -86,22 +88,7 @@ contract EFIR is ERC721, ERC721URIStorage, ERC721Burnable {
 
     function _setTokenURI(uint256 firId, string memory imageURI) internal override(ERC721URIStorage) {
         // Construct the metadata JSON object.
-        string memory metadata = string(
-            abi.encodePacked(
-                '{"description":"',
-                " Set the change in uri at: ",
-                block.timestamp,
-                " status of fir is: ",
-                s_firIdToStatus[firId],
-                '", "image":"',
-                imageURI,
-                '"}'
-            )
-        );
-
-        string memory base64Metadata = Base64.encode(bytes(metadata));
-
-        super._setTokenURI(firId, string(base64Metadata));
+        super._setTokenURI(firId, imageURI);
     }
 
     function _exists(uint256 firId) internal view returns (bool) {
