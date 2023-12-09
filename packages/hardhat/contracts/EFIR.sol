@@ -85,7 +85,6 @@ contract EFIR is ERC721, ERC721URIStorage, ERC721Burnable {
         string memory metadata = string(
             abi.encodePacked(
                 '{"description":"',
-                ,
                 " Set the change in uri at: ",
                 block.timestamp,
                 " status of fir is: ",

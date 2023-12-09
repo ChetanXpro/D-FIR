@@ -24,7 +24,7 @@ export default function Table(props: TableProps) {
         <tbody>
           {rows.map(row => {
             return (
-              <tr>
+              <tr key={row.id}>
                 {columns.map(column => {
                   return <td key={column.key}>{row[column.key]}</td>;
                 })}

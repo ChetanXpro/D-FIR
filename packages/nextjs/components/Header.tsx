@@ -1,10 +1,11 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useContext, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { signIn, signOut, useSession } from "next-auth/react";
 import { Bars3Icon, BugAntIcon } from "@heroicons/react/24/outline";
-import { FaucetButton, RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 import { useOutsideClick } from "~~/hooks/scaffold-eth";
+import { UserContext } from "~~/pages/providers/AuthContext";
 
 type HeaderMenuLink = {
   label: string;
@@ -54,6 +55,10 @@ export const HeaderMenuLinks = () => {
  * Site header
  */
 export const Header = () => {
+  const { loginGoogleAndWallet, logoutGoogleAndOkto } = useContext(UserContext);
+  const { data, status } = useSession();
+  console.log(data, status);
+
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const burgerMenuRef = useRef<HTMLDivElement>(null);
   useOutsideClick(
@@ -100,8 +105,14 @@ export const Header = () => {
         </ul>
       </div>
       <div className="navbar-end flex-grow mr-4">
-        <RainbowKitCustomConnectButton />
-        <FaucetButton />
+        {status !== "authenticated" ? (
+          <button onClick={loginGoogleAndWallet}>sign in with gooogle</button>
+        ) : (
+          <button onClick={logoutGoogleAndOkto}>sign out</button>
+        )}
+
+        {/* <RainbowKitCustomConnectButton /> */}
+        {/* <FaucetButton /> */}
       </div>
     </div>
   );
