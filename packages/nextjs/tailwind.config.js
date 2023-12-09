@@ -48,6 +48,8 @@ module.exports = {
           "accent-content": "#F9FBFF",
           neutral: "#F9FBFF",
           "neutral-content": "#385",
+          "app-gray-100": "#45494a",
+          "app-gray-200": "#1f1f1f",
           "base-100": "#007ac1",
           "base-200": "#1e1e1e",
           "base-300": "#212638",
