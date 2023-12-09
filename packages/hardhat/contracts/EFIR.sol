@@ -4,27 +4,39 @@ pragma solidity ^0.8.17;
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
+import {Base64} from "@openzeppelin/contracts/utils/Base64.sol";
 
 contract EFIR is ERC721, ERC721URIStorage, ERC721Burnable {
+    enum FIRstate {
+        FILED,
+        ASSIGNEDPOLICE
+    }
+
     uint256 private _currentFIRId;
     uint256[] private s_firIds;
     mapping(uint256 => address) public s_firApprovedToOfficer;
+    mapping(uint256 => string) public s_firIdToLocation;
     mapping(uint256 => address) public s_assignedOfficer;
+    mapping(uint256 => string) private previousOwnerNames;
+    mapping(uint256 => FIRstate) private s_firIdToStatus;
 
-    event FiledFIR(address indexed owner, uint256 firId, uint256 timeRecorded);
+    event FiledFIR(address indexed owner, uint256 firId, uint256 timeRecorded, string indexed location);
     event AssignedOfficer(address indexed officer, uint256 firId, uint256 timeRecorded);
     event UpdatedFIR(address indexed officer, uint256 firId, uint256 timeRecorded, string tokenUri);
+    event ClosedFIR(address indexed officer, uint256 firId, uint256 timeRecorded);
 
     constructor() ERC721("EFIRToken", "EFIRT") {
         _currentFIRId = 0;
     }
 
-    function fileFIR(string memory tokenUri) public returns (uint256) {
+    function fileFIR(string memory tokenUri, string memory location) public returns (uint256) {
         uint256 newFIRId = _currentFIRId++;
         _mint(msg.sender, newFIRId);
         _setTokenURI(newFIRId, tokenUri);
         s_firIds.push(newFIRId);
-        emit FiledFIR(msg.sender, newFIRId, block.timestamp);
+        s_firIdToStatus[newFIRId] = FIRstate.FILED;
+        s_firIdToLocation[newFIRId] = location;
+        emit FiledFIR(msg.sender, newFIRId, block.timestamp, location);
         return newFIRId;
     }
 
@@ -37,7 +49,7 @@ contract EFIR is ERC721, ERC721URIStorage, ERC721Burnable {
         require(_exists(firId), "ERC721: FIR does not exist");
         address approvedOfficer = s_firApprovedToOfficer[firId];
         require(approvedOfficer == msg.sender, "ERC721: Not approved officer");
-
+        s_firIdToStatus[firId] = FIRstate.ASSIGNEDPOLICE;
         s_assignedOfficer[firId] = approvedOfficer;
         _transfer(msg.sender, approvedOfficer, firId);
         emit AssignedOfficer(approvedOfficer, firId, block.timestamp);
@@ -58,17 +70,38 @@ contract EFIR is ERC721, ERC721URIStorage, ERC721Burnable {
                 break; // Exit the loop once the swap is done
             }
         }
+        emit ClosedFIR(s_assignedOfficer[firId], firId, block.timestamp);
         s_assignedOfficer[firId] = address(0);
         s_firApprovedToOfficer[firId] = address(0);
         _burn(firId);
+    }
+
+    function _baseURI() internal pure override returns (string memory) {
+        return "data:application/json;base64,";
     }
 
     function tokenURI(uint256 firId) public view override(ERC721, ERC721URIStorage) returns (string memory) {
         return super.tokenURI(firId);
     }
 
-    function _setTokenURI(uint256 firId, string memory tokenUri) internal override(ERC721URIStorage) {
-        super._setTokenURI(firId, tokenUri);
+    function _setTokenURI(uint256 firId, string memory imageURI) internal override(ERC721URIStorage) {
+        // Construct the metadata JSON object.
+        string memory metadata = string(
+            abi.encodePacked(
+                '{"description":"',
+                " Set the change in uri at: ",
+                block.timestamp,
+                " status of fir is: ",
+                s_firIdToStatus[firId],
+                '", "image":"',
+                imageURI,
+                '"}'
+            )
+        );
+
+        string memory base64Metadata = Base64.encode(bytes(metadata));
+
+        super._setTokenURI(firId, string(base64Metadata));
     }
 
     function _exists(uint256 firId) internal view returns (bool) {

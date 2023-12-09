@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import type { AppProps } from "next/app";
+import UserProvider from "./providers/AuthContext";
 import { RainbowKitProvider, darkTheme, lightTheme } from "@rainbow-me/rainbowkit";
 import "@rainbow-me/rainbowkit/styles.css";
 import { AnonAadhaarProvider } from "anon-aadhaar-react";
+import { SessionProvider } from "next-auth/react";
 import NextNProgress from "nextjs-progressbar";
 import { Toaster } from "react-hot-toast";
 import { useDarkMode } from "usehooks-ts";
@@ -27,16 +29,18 @@ const ScaffoldEthApp = ({ Component, pageProps }: AppProps) => {
   }, [setNativeCurrencyPrice, price]);
 
   return (
-    <>
-      <div className="flex flex-col min-h-screen ">
-        <Header />
-        <main className="relative flex flex-col flex-1 px-4 py-8 space-y-4">
-          <Component {...pageProps} />
-        </main>
-        <Footer />
-      </div>
-      <Toaster />
-    </>
+    <SessionProvider session={pageProps.session}>
+      <UserProvider>
+        <div className="flex flex-col min-h-screen ">
+          <Header />
+          <main className="relative flex flex-col flex-1 px-4 py-8 space-y-4">
+            <Component {...pageProps} />
+          </main>
+          <Footer />
+        </div>
+        <Toaster />
+      </UserProvider>
+    </SessionProvider>
   );
 };
 const appId = process.env.NEXT_PUBLIC_APP_ID || "";
