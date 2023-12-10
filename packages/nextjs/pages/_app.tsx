@@ -1,14 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import type { AppProps } from "next/app";
 import { Inter } from "next/font/google";
 import UserProvider from "./providers/AuthContext";
-import { RainbowKitProvider, darkTheme, lightTheme } from "@rainbow-me/rainbowkit";
+import { RainbowKitProvider, darkTheme } from "@rainbow-me/rainbowkit";
 import "@rainbow-me/rainbowkit/styles.css";
 import { AnonAadhaarProvider } from "anon-aadhaar-react";
 import { SessionProvider } from "next-auth/react";
 import NextNProgress from "nextjs-progressbar";
 import { Toaster } from "react-hot-toast";
-import { useDarkMode } from "usehooks-ts";
 import { WagmiConfig } from "wagmi";
 import { Footer } from "~~/components/Footer";
 import { Header } from "~~/components/Header";
@@ -53,21 +52,12 @@ const appId = process.env.NEXT_PUBLIC_APP_ID || "";
 
 const ScaffoldEthAppWithProviders = (props: AppProps) => {
   // This variable is required for initial client side rendering of correct theme for RainbowKit
-  const [isDarkTheme, setIsDarkTheme] = useState(true);
-  const { isDarkMode } = useDarkMode();
-  useEffect(() => {
-    setIsDarkTheme(isDarkMode);
-  }, [isDarkMode]);
 
   return (
     <AnonAadhaarProvider _appId={appId}>
       <WagmiConfig config={wagmiConfig}>
         <NextNProgress />
-        <RainbowKitProvider
-          chains={appChains.chains}
-          avatar={BlockieAvatar}
-          theme={isDarkTheme ? darkTheme() : lightTheme()}
-        >
+        <RainbowKitProvider chains={appChains.chains} avatar={BlockieAvatar} theme={darkTheme()}>
           <ScaffoldEthApp {...props} />
         </RainbowKitProvider>
       </WagmiConfig>
