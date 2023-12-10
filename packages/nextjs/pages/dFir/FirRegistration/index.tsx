@@ -44,7 +44,7 @@ const FirRegistration = () => {
   const { writeAsync, isLoading } = useScaffoldContractWrite({
     contractName: "EFIR",
     functionName: "fileFIR",
-    args: [newTokenUri, newLocation],
+    args: [newTokenUri],
     onBlockConfirmation: txnReceipt => {
       console.log("📦 Transaction blockHash", txnReceipt.blockHash);
     },
@@ -108,7 +108,7 @@ const FirRegistration = () => {
     // const hash = await execute_raw_transaction(tx_data,"")
 
     await writeAsync({
-      args: [firUri, firData.district],
+      args: [firUri],
     });
   };
 

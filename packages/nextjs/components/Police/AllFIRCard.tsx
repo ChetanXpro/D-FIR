@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { firToEditAtom } from "../../atoms/atoms";
+// import { FIRStatusList } from "~~/utils/constant";
+import { useScaffoldContractWrite } from "../../hooks/scaffold-eth";
 // import Select from "../Select";
 import { useAtom } from "jotai";
-
-// import { FIRStatusList } from "~~/utils/constant";
 
 interface Props {
   //   isEditTaskDrawerOpen: boolean;
@@ -51,6 +51,15 @@ Props) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  const { writeAsync: assignOfficer, isLoading: loading } = useScaffoldContractWrite({
+    contractName: "EFIR",
+    functionName: "officerAssignRequest",
+    args: [BigInt(0)],
+    onBlockConfirmation: txnReceipt => {
+      console.log("📦 Transaction blockHash", txnReceipt.blockHash);
+    },
+  });
 
   return (
     <div
@@ -120,8 +129,14 @@ Props) => {
                   <ul className="py-2 text-sm text-gray-700 " aria-labelledby="dropdownDefaultButton">
                     <li>
                       <div
-                        onClick={() => {
+                        onClick={async () => {
                           setTaskToEdit(Fir);
+
+                          await assignOfficer({
+                            args: [BigInt(Fir.firID)],
+                          }).then(() => {
+                            console.log("assigned");
+                          });
 
                           // !TODO
                           //   setIsEditTaskDrawerOpen(!isEditTaskDrawerOpen);

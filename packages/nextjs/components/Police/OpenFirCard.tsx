@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { firToEditAtom } from "../../atoms/atoms";
+// import { FIRStatusList } from "~~/utils/constant";
+import { useScaffoldContractWrite } from "../../hooks/scaffold-eth";
 import Select from "../Select";
 // import Select from "../Select";
 import { useAtom } from "jotai";
 import { FIRStatusList } from "~~/utils/constant";
-
-// import { FIRStatusList } from "~~/utils/constant";
 
 interface Props {
   //   isEditTaskDrawerOpen: boolean;
@@ -53,6 +53,12 @@ Props) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  const { writeAsync: burnFir, isLoading: loadBurn } = useScaffoldContractWrite({
+    contractName: "EFIR",
+    functionName: "burn",
+    args: [BigInt(0)],
+  });
 
   return (
     <div
@@ -147,6 +153,13 @@ Props) => {
                       <div
                         onClick={() => {
                           setTaskToEdit(Fir);
+
+                          burnFir({
+                            args: [BigInt(Fir.firID)],
+                          }).then(() => {
+                            console.log("burned");
+                          });
+
                           //   setIsEditTaskDrawerOpen(!isEditTaskDrawerOpen);
                         }}
                         className="block px-4 py-2 cursor-pointer hover:bg-gray-100  "
