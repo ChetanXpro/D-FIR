@@ -149,24 +149,24 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     }
   }, [data, status]);
 
-  const refreshToken = async () => {
-    const refreshTokenData = await refresh_token(
-      process.env.NEXT_PUBLIC_OCKO_API as string,
-      authData.auth_token,
-      authData.refresh_auth_token,
-      authData.device_auth_token,
-    );
-    console.log("Refresh Token Data:", refreshTokenData);
-  };
+  // const refreshToken = async () => {
+  //   const refreshTokenData = await refresh_token(
+  //     process.env.NEXT_PUBLIC_OCKO_API as string,
+  //     authData.auth_token,
+  //     authData.refresh_auth_token,
+  //     authData.device_auth_token,
+  //   );
+  //   console.log("Refresh Token Data:", refreshTokenData);
+  // };
 
-  useEffect(() => {
-    if (status === "authenticated") {
-      const intervalId = setInterval(() => {
-        refreshToken();
-      }, 2 * 60 * 1000);
-      return () => clearInterval(intervalId);
-    }
-  }, [status]);
+  // useEffect(() => {
+  //   if (status === "authenticated") {
+  //     const intervalId = setInterval(() => {
+  //       refreshToken();
+  //     }, 2 * 60 * 1000);
+  //     return () => clearInterval(intervalId);
+  //   }
+  // }, [status]);
 
   // Rest of your component logic
 
