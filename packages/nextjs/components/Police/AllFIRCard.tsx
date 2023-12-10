@@ -1,42 +1,21 @@
 import React, { useEffect } from "react";
 import { firToEditAtom } from "../../atoms/atoms";
-// import { FIRStatusList } from "~~/utils/constant";
 import { useScaffoldContractWrite } from "../../hooks/scaffold-eth";
-// import Select from "../Select";
 import { useAtom } from "jotai";
 
 interface Props {
-  //   isEditTaskDrawerOpen: boolean;
-  //   setTaskToEdit: (task: any) => void;
-  //   taskToEdit: any;
   Fir: {
     firID: string;
     ComplainantName: string;
     firshortdescription: string;
   };
   setIsViewFIROpen: (isOpen: boolean) => void;
-
-  //   setIsEditTaskDrawerOpen?: (isOpen: boolean) => void;
-
-  //   isViewTaskDrawerOpen?: boolean;
-  //   setIsViewTaskDrawerOpen?: (open: boolean) => void;
 }
 
-const AllFIRCard = ({
-  Fir,
-  setIsViewFIROpen,
-}: //   setIsEditTaskDrawerOpen,
-
-//   isViewTaskDrawerOpen,
-//   setIsViewTaskDrawerOpen,
-
-//   isEditTaskDrawerOpen,
-Props) => {
+const AllFIRCard = ({ Fir, setIsViewFIROpen }: Props) => {
   const [, setTaskToEdit] = useAtom(firToEditAtom);
-  //   const [, setTaskToView] = useAtom(firToViewAtom);
 
   const [actionButton, setActionButton] = React.useState(false);
-  //   const [markbutton, setMarkButton] = useState(false);
   const actiondropdownRef = React.useRef<HTMLDivElement>(null);
 
   const handleClickOutside = (e: any) => {
@@ -62,13 +41,10 @@ Props) => {
   });
 
   return (
-    <div
-      className={`
-        "flex sticky-note flex-col rounded-lg bg-gray-400     text-black  w-60 p-3 h-56  md:flex-row`}
-    >
-      <div className="flex flex-col gap-3  justify-between  h-full ">
+    <div className={`flex sticky-note flex-col rounded-lg bg-[aliceblue]  text-black  w-60 p-3 h-56  md:flex-row`}>
+      <div className="flex flex-col gap-3 justify-between h-full ">
         <div className="h-full">
-          <div className=" w-full flex h-full  gap-4  flex-col ">
+          <div className="w-full flex h-full gap-4 flex-col ">
             <div className="flex flex-col gap-0">
               <h1 className="text-base font-semibold text-blue-700">Complainant Name:</h1>
               <h5 className=" text-sm font-medium text-neutral-900  ">
@@ -80,9 +56,9 @@ Props) => {
               </h5>
             </div>
 
-            <div className="">
+            <div>
               <h1 className="text-base font-semibold text-blue-700">Short Description:</h1>
-              <h5 className=" text-sm h-full overflow-scroll  text-neutral-600 ">
+              <h5 className=" text-sm h-full text-neutral-600 ">
                 {Fir.firshortdescription.length > 0
                   ? Fir.firshortdescription.length > 60
                     ? Fir.firshortdescription.slice(0, 60) + "..."
@@ -92,7 +68,7 @@ Props) => {
             </div>
           </div>
         </div>
-        {/* <p className=""></p> */}
+
         <div className="flex flex-col gap-5 ">
           <div className=" flex items-center  gap-3 ">
             <div ref={actiondropdownRef} className="flex  relative ">
@@ -141,7 +117,7 @@ Props) => {
                           // !TODO
                           //   setIsEditTaskDrawerOpen(!isEditTaskDrawerOpen);
                         }}
-                        className="block px-4 py-2 hover:bg-gray-100  "
+                        className="block px-4 py-2 hover:bg-gray-100 cursor-pointer"
                       >
                         Accept FIR
                       </div>
@@ -150,10 +126,9 @@ Props) => {
                       <div
                         onClick={() => {
                           setTaskToEdit(Fir);
-                          //   setIsEditTaskDrawerOpen(!isEditTaskDrawerOpen);
                           setIsViewFIROpen(true);
                         }}
-                        className="block px-4 py-2 hover:bg-gray-100  "
+                        className="block px-4 py-2 hover:bg-gray-100 cursor-pointer"
                       >
                         View FIR
                       </div>
