@@ -51,7 +51,7 @@ const FirRegistration = () => {
 
   const { writeAsync: assignOfficer, isLoading: loading } = useScaffoldContractWrite({
     contractName: "EFIR",
-    functionName: "assignOfficer",
+    functionName: "officerAssignRequest",
     args: [BigInt(0)],
     onBlockConfirmation: txnReceipt => {
       console.log("📦 Transaction blockHash", txnReceipt.blockHash);
@@ -72,6 +72,18 @@ const FirRegistration = () => {
     functionName: "burn",
     args: [BigInt(0)],
   });
+
+  const assignOfficerThruOkto = async () => {
+    const tx_data = await makeTransaction("officerAssignRequest", [0]);
+    const hash = await execute_raw_transaction(tx_data, "", authToken);
+    return hash;
+  };
+
+  const updateUriThruOkto = async () => {
+    const tx_data = await makeTransaction("updateFIR", [0, newTokenUri]);
+    const hash = await execute_raw_transaction(tx_data, "", authToken);
+    return hash;
+  };
 
   const burnFirThruOkto = async () => {
     const tx_data = await makeTransaction("burn", [0]);

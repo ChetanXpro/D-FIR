@@ -42,10 +42,10 @@ contract EFIR is ERC721, ERC721URIStorage, ERC721Burnable {
         return newFIRId;
     }
 
-    function officerAssignRequest(uint256 firId, address officer) public {
+    function officerAssignRequest(uint256 firId) public {
         require(_exists(firId), "ERC721: FIR does not exist");
         require(s_firIdToStatus[firId] == FIRstate.OPENED, "ERC721: FIR is not open");
-        assignOfficer(firId, officer);
+        assignOfficer(firId, msg.sender);
     }
 
     function assignOfficer(uint256 firId, address officer) internal {
