@@ -1,0 +1,48 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: EFIR
+    network: mumbai
+    source:
+      address: "0x4253B5BbeF913c6610AC04187709eeD5076e1ED7"
+      abi: EFIR
+      startBlock: 43388129
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Approval
+        - ApprovalForAll
+        - AssignedOfficer
+        - BatchMetadataUpdate
+        - ClosedFIR
+        - MetadataUpdate
+        - OpenedFIR
+        - Transfer
+        - UpdatedFIR
+      abis:
+        - name: EFIR
+          file: ./abis/EFIR.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,indexed uint256)
+          handler: handleApproval
+        - event: ApprovalForAll(indexed address,indexed address,bool)
+          handler: handleApprovalForAll
+        - event: AssignedOfficer(indexed address,uint256,uint256)
+          handler: handleAssignedOfficer
+        - event: BatchMetadataUpdate(uint256,uint256)
+          handler: handleBatchMetadataUpdate
+        - event: ClosedFIR(indexed address,uint256,uint256)
+          handler: handleClosedFIR
+        - event: MetadataUpdate(uint256)
+          handler: handleMetadataUpdate
+        - event: OpenedFIR(indexed address,uint256,uint256,indexed string)
+          handler: handleOpenedFIR
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+        - event: UpdatedFIR(indexed address,uint256,uint256,string)
+          handler: handleUpdatedFIR
+      file: ./src/efir.ts

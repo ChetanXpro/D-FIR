@@ -4,27 +4,23 @@ import { ethers } from "ethers";
 import { encodePacked, keccak256, toBytes } from "viem";
 import { AddressType } from "~~/types/abitype/abi";
 
+const alchemyKit = process.env.NEXT_PUBLIC_ALCHEMY_ID;
 const apiKey = process.env.NEXT_PUBLIC_LIGHTHOUSE_KEY;
 const secretKey = process.env.NEXT_PUBLIC_LIGHTHOUSE_SECRET_KEY;
 
 const useStorage = (address: AddressType) => {
   const uploadEncryptedDataOnLighthouse = async (longerDescription: string): Promise<string> => {
-    console.log("======= LONGER DESCRIPTION=======", longerDescription);
+    const provider = new ethers.JsonRpcProvider(`https://polygon-mumbai.g.alchemy.com/v2/${alchemyKit}`);
+    const wallet = ethers.Wallet.createRandom(provider);
 
-    // Generate a new wallet
-    const wallet = ethers.Wallet.createRandom();
-
-    // Display the new wallet's public address and private key
     console.log("New Wallet Address:", wallet.address);
     console.log("New Wallet Private Key:", wallet.privateKey);
 
-    // const message = "Unique message to sign"; // This message should be the one you want to encrypt and upload
-
-    const signedMessage = await wallet.signMessage(longerDescription);
+    let messageRequested = (await lighthouse.getAuthMessage(wallet.address)).data.message;
+    let signedMessage = await wallet.signMessage(messageRequested);
 
     console.log("Signed Message:", signedMessage);
 
-    // const signedMessage = AES.encrypt(longerDescription, secretKey as string).toString();
     const response = await lighthouse.textUploadEncrypted(
       longerDescription,
       apiKey as string,
@@ -41,9 +37,6 @@ const useStorage = (address: AddressType) => {
     shorterDescription: { name: string; district: string; description: string },
     longerDescription: string,
   ): Promise<string> => {
-    console.log("======= SHORTER DESCRIPTION=======", shorterDescription);
-    console.log("======= LONGER DESCRIPTION=======", longerDescription);
-
     let fileHash = await uploadEncryptedDataOnLighthouse(longerDescription);
     const metaDataJson = {
       name: shorterDescription.name + "Filed FIR about crime at: " + shorterDescription.district,
