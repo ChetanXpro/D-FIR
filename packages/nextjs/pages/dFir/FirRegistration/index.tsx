@@ -22,7 +22,7 @@ const FirRegistration = () => {
   const authToken = authData.auth_token;
 
   const { makeTransaction, execute_raw_transaction } = useContractInteraction({ walletAddress });
-  const { getTokenURIFromJson } = useStorage(address as string);
+  const { getTokenURIFromJson } = useStorage(walletAddress as string);
 
   const [firData, setFirData] = useState({
     district: "",
@@ -103,15 +103,15 @@ const FirRegistration = () => {
       },
       firData.complaintLongDesc,
     );
-    // const tx_data = await makeTransaction("fileFIR", [firUri, firData.district]);
-    // console.log(authToken);
-    // const hash = await execute_raw_transaction(tx_data, "", authToken);
-    // console.log(hash);
+    const tx_data = await makeTransaction("fileFIR", [firUri]);
+    console.log(authToken);
+    const hash = await execute_raw_transaction(tx_data, "0x", authToken);
+    console.log(hash);
     // const hash = await execute_raw_transaction(tx_data,"")
 
-    await writeAsync({
-      args: [firUri],
-    });
+    // await writeAsync({
+    //   args: [firUri],
+    // });
   };
 
   return (

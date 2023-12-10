@@ -10,6 +10,14 @@ const AllFIR = () => {
     functionName: "getAllFIRs",
   });
 
+  const { data: fetchData } = useScaffoldContractRead({
+    contractName: "EFIR",
+    functionName: "tokenURI",
+    args: [BigInt(3)],
+  });
+
+  console.log(fetchData);
+
   const dummyFIR = [
     {
       firID: "FIR-1",
