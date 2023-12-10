@@ -15,16 +15,19 @@ const FirRegistration = () => {
     complaintShortDesc: "Theft",
     complaintLongDesc: "The suspect stole my wallet in front of Borivali station and escaped on a bike",
     complainantName: "Jignesh Patel",
-    complaintPhone: "9765432109",
+    complainantPhone: "9765432109",
     complaintEmail: "jigneshpatel@gmail.com",
     complaintGender: "Male",
   });
 
   const handleInputChange = (e: { target: { name: any; value: any } }) => {
     const { name, value } = e.target;
-    setFirData({
-      ...firData,
-      [name]: value,
+
+    setFirData(prev => {
+      return {
+        ...prev,
+        [name]: value,
+      };
     });
   };
 
@@ -45,7 +48,7 @@ const FirRegistration = () => {
         placeholder="Type here"
         className="input input-bordered input-success w-full"
         onChange={handleInputChange}
-        name="complaintPhone"
+        name="complainantName"
         value={firData.complainantName}
       />
 
@@ -55,8 +58,8 @@ const FirRegistration = () => {
         placeholder="Type here"
         className="input input-bordered input-success w-full"
         onChange={handleInputChange}
-        name="complaintPhone"
-        value={firData.complaintPhone}
+        name="complainantPhone"
+        value={firData.complainantPhone}
       />
       <h1 className="text-bold text-xl tracking-[1.5px] ">Email</h1>
       <input
@@ -103,8 +106,8 @@ const FirRegistration = () => {
         placeholder="Type here"
         className="textarea textarea-success  w-full"
         onChange={handleInputChange}
-        name="complaintShortDesc"
-        value={firData.complaintShortDesc}
+        name="complaintLongDesc"
+        value={firData.complaintLongDesc}
       />
 
       <button
