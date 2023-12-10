@@ -1,4 +1,7 @@
 import React from "react";
+import Button from "../Button/Button";
+import InputField from "../Input/input";
+import TextArea from "../TextArea/TextArea";
 import Drawer from "../drawer/drawer";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 
@@ -25,10 +28,19 @@ const AddCaseNoteDrawer = ({
           </div>
         </div>
 
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col justify-between h-full gap-6">
           <div>
             <p className="text-base font-semibold">Task Name</p>
-            <input type="text" className="" />
+            {/* <InputField label="" name="" type="" placeholder="Enter Case note" /> */}
+            <TextArea label="" name="" />
+          </div>
+          <div className="flex gap-3">
+            <div className="flex gap-3 mb-10">
+              <Button>Submit</Button>
+            </div>
+            <div className="flex gap-3 mb-10">
+              <Button>Close</Button>
+            </div>
           </div>
         </div>
       </div>
