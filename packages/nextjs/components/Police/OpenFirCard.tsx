@@ -3,34 +3,17 @@ import { firToEditAtom } from "../../atoms/atoms";
 import { useAtom } from "jotai";
 
 interface Props {
-  //   isEditTaskDrawerOpen: boolean;
-  //   setTaskToEdit: (task: any) => void;
-  //   taskToEdit: any;
   Fir: {
     firID: string;
     ComplainantName: string;
     firshortdescription: string;
   };
-
-  //   setIsEditTaskDrawerOpen?: (isOpen: boolean) => void;
-
-  //   isViewTaskDrawerOpen?: boolean;
-  //   setIsViewTaskDrawerOpen?: (open: boolean) => void;
 }
 
-const OpenFIRCard = ({
-  Fir,
-}: //   setIsEditTaskDrawerOpen,
-//   isViewTaskDrawerOpen,
-//   setIsViewTaskDrawerOpen,
-
-//   isEditTaskDrawerOpen,
-Props) => {
+const OpenFIRCard = ({ Fir }: Props) => {
   const [, setTaskToEdit] = useAtom(firToEditAtom);
-  //   const [, setTaskToView] = useAtom(firToViewAtom);
 
   const [actionButton, setActionButton] = React.useState(false);
-  //   const [markbutton, setMarkButton] = useState(false);
   const actiondropdownRef = React.useRef<HTMLDivElement>(null);
 
   const handleClickOutside = (e: any) => {
@@ -47,10 +30,7 @@ Props) => {
   }, []);
 
   return (
-    <div
-      className={`
-        "flex sticky-note flex-col rounded-lg bg-gray-400     text-black  w-60 p-3 h-56  md:flex-row`}
-    >
+    <div className={`flex sticky-note flex-col  rounded-lg bg-[aliceblue] text-black w-60 p-3 h-56 md:flex-row`}>
       <div className="flex flex-col gap-3  justify-between  h-full ">
         <div className="h-full">
           <div className=" w-full flex h-full  gap-4  flex-col ">
@@ -67,7 +47,7 @@ Props) => {
 
             <div className="">
               <h1 className="text-base font-semibold text-blue-700">Short Description:</h1>
-              <h5 className=" text-sm h-full overflow-scroll  text-neutral-600 ">
+              <h5 className=" text-sm h-full text-neutral-600 ">
                 {Fir.firshortdescription.length > 0
                   ? Fir.firshortdescription.length > 60
                     ? Fir.firshortdescription.slice(0, 60) + "..."
@@ -77,7 +57,7 @@ Props) => {
             </div>
           </div>
         </div>
-        {/* <p className=""></p> */}
+
         <div className="flex flex-col gap-5 ">
           <div className=" flex items-center  gap-3 ">
             <div ref={actiondropdownRef} className="flex  relative ">
@@ -116,7 +96,6 @@ Props) => {
                       <div
                         onClick={() => {
                           setTaskToEdit(Fir);
-                          //   setIsEditTaskDrawerOpen(!isEditTaskDrawerOpen);
                         }}
                         className="block px-4 py-2 cursor-pointer hover:bg-gray-100  "
                       >
@@ -127,9 +106,8 @@ Props) => {
                       <div
                         onClick={() => {
                           setTaskToEdit(Fir);
-                          //   setIsEditTaskDrawerOpen(!isEditTaskDrawerOpen);
                         }}
-                        className="block px-4 py-2 cursor-pointer hover:bg-gray-100  "
+                        className="block px-4 py-2 cursor-pointer hover:bg-gray-100"
                       >
                         View FIR
                       </div>
@@ -138,7 +116,6 @@ Props) => {
                       <div
                         onClick={() => {
                           setTaskToEdit(Fir);
-                          //   setIsEditTaskDrawerOpen(!isEditTaskDrawerOpen);
                         }}
                         className="block px-4 py-2 cursor-pointer hover:bg-gray-100  "
                       >
