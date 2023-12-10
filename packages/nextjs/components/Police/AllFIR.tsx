@@ -10,20 +10,6 @@ const AllFIR = () => {
     functionName: "getAllFIRs",
   });
 
-  const { data: firToken1 } = useScaffoldContractRead({
-    contractName: "EFIR",
-    functionName: "tokenURI",
-    args: [BigInt(0)],
-  });
-
-  const { data: firToken2 } = useScaffoldContractRead({
-    contractName: "EFIR",
-    functionName: "tokenURI",
-    args: [BigInt(1)],
-  });
-
-  console.log(firToken1, firToken2);
-
   const dummyFIR = [
     {
       firID: "FIR-1",
@@ -40,8 +26,9 @@ const AllFIR = () => {
     <div className="flex flex-col">
       <h1 className="w-full text-center text-2xl font-semibold mb-4">All FIR</h1>
       <div className="flex flex-wrap gap-3">
-        {dummyFIR.map(fir => (
+        {dummyFIR?.map(fir => (
           <OpenFIRCard setIsViewFIROpen={setIsViewFIROpen} key={fir.firID} Fir={fir} />
+          // <>fir</>
         ))}
       </div>
 

@@ -155,7 +155,7 @@ Props) => {
                           setTaskToEdit(Fir);
 
                           burnFir({
-                            args: [BigInt(Fir.firID)],
+                            args: [BigInt(0)],
                           }).then(() => {
                             console.log("burned");
                           });

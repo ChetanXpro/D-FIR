@@ -109,7 +109,7 @@ const AllFIRCard = ({ Fir, setIsViewFIROpen }: Props) => {
                           setTaskToEdit(Fir);
 
                           await assignOfficer({
-                            args: [BigInt(Fir.firID)],
+                            args: [BigInt(0)],
                           }).then(() => {
                             console.log("assigned");
                           });
