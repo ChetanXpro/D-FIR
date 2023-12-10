@@ -1,9 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import OpenFIRCard from "./AllFIRCard";
 import ViewAllFirDrawer from "./ViewAllFirDrawer";
+import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 
 const AllFIR = () => {
   const [isViewFIROpen, setIsViewFIROpen] = React.useState(false);
+  const { data } = useScaffoldContractRead({
+    contractName: "EFIR",
+    functionName: "getAllFIRs",
+  });
+
+  const { data: firToken1 } = useScaffoldContractRead({
+    contractName: "EFIR",
+    functionName: "tokenURI",
+    args: [BigInt(0)],
+  });
+
+  const { data: firToken2 } = useScaffoldContractRead({
+    contractName: "EFIR",
+    functionName: "tokenURI",
+    args: [BigInt(1)],
+  });
+
+  console.log(firToken1, firToken2);
+
   const dummyFIR = [
     {
       firID: "FIR-1",

@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import axios from "axios";
 
 // Dummy data for demonstration
 const stats = {
@@ -12,31 +13,51 @@ const stats = {
 };
 
 const StatisticsPage: React.FC = () => {
+  const [openFirs, setOpenFirs] = useState(0);
+  const [pendingFirs, setPendingFirs] = useState(0);
+  const [closeFirs, setCloseFirs] = useState(0);
+  const query = `
+  {
+    assignedOfficers(orderBy: "blockTimestamp") {
+      id
+    }
+    openedFIRs(orderBy: "timeRecorded") {
+      id
+    }
+    updatedFIRs(orderBy: "timeRecorded") {
+      id
+    }
+    closedFIRs(orderBy: "timeRecorded") {
+      id
+    }
+  }
+`;
+
+  useEffect(() => {
+    axios
+      .post("https://api.studio.thegraph.com/query/60120/d-fir/v0.0.3", { query })
+      .then(response => {
+        // Handle the response data
+        console.log(response.data);
+        setOpenFirs(response.data.data.openedFIRs.length);
+        setPendingFirs(response.data.data.assignedOfficers.length);
+        setCloseFirs(response.data.data.closedFIRs.length);
+      })
+      .catch(error => {
+        // Handle errors
+        console.error(error);
+      });
+  }, []);
+
   return (
     <div className="min-h-screen  px-4 sm:px-6 lg:px-8">
       <h1 className="text-4xl font-extrabold text-center text-gray-900 dark:text-white">FIR Statistics Dashboard</h1>
 
-      <div className="mt-10 grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
+      <div className="mt-10 grid gap-48 mb-8 md:grid-cols-2 xl:grid-cols-4">
         {/* Stat Cards */}
-        <StatCard
-          title="FIRs Filed This Month"
-          value={stats.totalFiledThisMonth}
-          icon="📈"
-          borderColor="border-blue-500"
-        />
-        <StatCard
-          title="FIRs Resolved This Month"
-          value={stats.totalResolvedThisMonth}
-          icon="✔️"
-          borderColor="border-green-500"
-        />
-        <StatCard title="Pending FIRs" value={stats.totalPending} icon="⏳" borderColor="border-yellow-500" />
-        <StatCard
-          title="Crime Rate Change"
-          value={`${stats.crimeRateChange > 0 ? "+" : ""}${stats.crimeRateChange}%`}
-          icon={stats.crimeRateChange > 0 ? "📉" : "📈"}
-          borderColor={stats.crimeRateChange > 0 ? "border-red-500" : "border-green-500"}
-        />
+        <StatCard title="FIRs Filed" value={openFirs} icon="📈" borderColor="border-blue-500" />
+        <StatCard title="FIRs Resolved" value={pendingFirs} icon="✔️" borderColor="border-green-500" />
+        <StatCard title="Pending FIRs" value={closeFirs} icon="⏳" borderColor="border-yellow-500" />
       </div>
 
       {/* Bar Chart */}
