@@ -41,7 +41,7 @@ const StatisticsPage: React.FC = () => {
 
       {/* Bar Chart */}
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-5">
-        <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">Monthly FIR Overview</h2>
+        {/* <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">Monthly FIR Overview</h2> */}
         <BarChartPlaceholder />
       </div>
 

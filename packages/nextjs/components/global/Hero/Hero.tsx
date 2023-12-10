@@ -62,7 +62,7 @@ const StatisticsPage: React.FC = () => {
 
       {/* Bar Chart */}
       <div className="bg-white  dark:bg-gray-800 rounded-lg shadow p-5">
-        <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">Monthly FIR Overview</h2>
+        {/* <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">Monthly FIR Overview</h2> */}
         <BarChartPlaceholder />
       </div>
 
@@ -93,22 +93,27 @@ const StatCard: React.FC<{ title: string; value: number | string; icon: string; 
 const BarChartPlaceholder: React.FC = () => {
   const router = useRouter();
   return (
-    <div className=" gap-4 flex-1 bg-gradient-to-b from-blue-200 to-blue-400 dark:from-blue-600 dark:to-blue-800 rounded-lg flex items-center justify-center text-white text-2xl">
-      <div className="hero h-full bg-base-200 items-center justify-center mt-3">
-        <div className="hero-content text-center">
-          <div className="max-w-md">
-            <h1 className="text-5xl font-bold">Access Your Dashboard </h1>
-            <p className="py-6"></p>
-            <div className="flex justify-center space-x-4">
-              <button className="btn btn-primary" onClick={() => router.push("citizen")}>
-                User Dashboard
-              </button>
-              <button className="btn btn-secondary" onClick={() => router.push("police")}>
-                Police Dashboard
-              </button>
-            </div>
-          </div>
-        </div>
+    <div className="container mx-auto px-6 py-16 text-center">
+      <h2 className="text-3xl font-bold text-gray-900 dark:text-white sm:text-4xl">Access Your Dashboard</h2>
+      <div className="flex justify-center">
+        <p className="mt-4 text-lg text-gray-700 dark:text-gray-300 w-3/4">
+          Whether you're a community member seeking updates or law enforcement personnel looking to manage FIRs, access
+          the tailored dashboard designed for your needs.
+        </p>
+      </div>
+      <div className="mt-8 flex justify-center gap-4">
+        <button
+          onClick={() => router.push("citizen")}
+          className="btn inline-block px-6 py-1 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+        >
+          User Dashboard
+        </button>
+        <button
+          onClick={() => router.push("police")}
+          className="btn inline-block px-6 py-2.5 bg-green-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out"
+        >
+          Police Dashboard
+        </button>
       </div>
     </div>
   );

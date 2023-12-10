@@ -25,12 +25,14 @@ const FirRegistration = () => {
   const { getTokenURIFromJson } = useStorage(address as string);
 
   const [firData, setFirData] = useState({
-    district: "Borivali",
-    complaintShortDesc: "Theft",
-    complaintLongDesc: "The suspect stole my wallet in front of Borivali station and escaped on a bike",
-    complainantName: "Jignesh Patel",
-    complaintPhone: "9765432109",
-    complaintGender: "Male",
+    district: "",
+    year: "",
+    complaintShortDesc: "",
+    complaintLongDesc: "",
+    complainantName: "",
+    complainantPhone: "",
+    complaintEmail: "",
+    complaintGender: "",
   });
 
   const handleInputChange = (e: { target: { name: any; value: any } }) => {
@@ -124,7 +126,7 @@ const FirRegistration = () => {
         placeholder="Type here"
         className="input input-bordered input-success w-full"
         onChange={handleInputChange}
-        name="complaintPhone"
+        name="complainantName"
         value={firData.complainantName}
       />
 
@@ -134,8 +136,17 @@ const FirRegistration = () => {
         placeholder="Type here"
         className="input input-bordered input-success w-full"
         onChange={handleInputChange}
-        name="complaintPhone"
-        value={firData.complaintPhone}
+        name="complainantPhone"
+        value={firData.complainantPhone}
+      />
+      <h1 className="text-bold text-xl tracking-[1.5px] ">Email</h1>
+      <input
+        type="text"
+        placeholder="Type here"
+        className="input input-bordered input-success w-full"
+        onChange={handleInputChange}
+        name="complaintEmail"
+        value={firData.complaintEmail}
       />
       <h1 className="text-bold text-xl tracking-[1.5px] ">Gender</h1>
       <input
@@ -173,8 +184,8 @@ const FirRegistration = () => {
         placeholder="Type here"
         className="textarea textarea-success  w-full"
         onChange={handleInputChange}
-        name="complaintShortDesc"
-        value={firData.complaintShortDesc}
+        name="complaintLongDesc"
+        value={firData.complaintLongDesc}
       />
 
       <button className="btn btn-primary btn-outline w-full mt-10" onClick={processFilingFir}>
