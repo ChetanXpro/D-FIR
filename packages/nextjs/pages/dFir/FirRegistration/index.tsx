@@ -49,6 +49,36 @@ const FirRegistration = () => {
     },
   });
 
+  const { writeAsync: assignOfficer, isLoading: loading } = useScaffoldContractWrite({
+    contractName: "EFIR",
+    functionName: "assignOfficer",
+    args: [BigInt(0)],
+    onBlockConfirmation: txnReceipt => {
+      console.log("📦 Transaction blockHash", txnReceipt.blockHash);
+    },
+  });
+
+  const { writeAsync: updateUri, isLoading: loadingUri } = useScaffoldContractWrite({
+    contractName: "EFIR",
+    functionName: "updateFIR",
+    args: [BigInt(0), newTokenUri],
+    onBlockConfirmation: txnReceipt => {
+      console.log("📦 Transaction blockHash", txnReceipt.blockHash);
+    },
+  });
+
+  const { writeAsync: burnFir, isLoading: loadBurn } = useScaffoldContractWrite({
+    contractName: "EFIR",
+    functionName: "burn",
+    args: [BigInt(0)],
+  });
+
+  const burnFirThruOkto = async () => {
+    const tx_data = await makeTransaction("burn", [0]);
+    const hash = await execute_raw_transaction(tx_data, "", authToken);
+    return hash;
+  };
+
   const processFilingFir = async () => {
     // const tx_data = await makeTransaction("fileFIR", ["bhavya", "mumbai"]);
     // console.log(authToken);

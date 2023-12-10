@@ -4,12 +4,14 @@ import AllFIR from "~~/components/Police/AllFIR";
 import ClosedFir from "~~/components/Police/ClosedFIR";
 import OpenFIR from "~~/components/Police/OpenedFIR";
 import Steps from "~~/components/Police/Steps";
+import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 import { Tab } from "~~/utils/constant";
 
 // Mock data - replace with actual data retrieval from your decentralized system
 
 const Dashboard: React.FC = () => {
   const [activeTab, setActiveTab] = React.useState(Tab.All);
+
   const currentComponent = {
     [Tab.All]: <AllFIR />,
     [Tab.IN_PROGRESS]: <OpenFIR />,

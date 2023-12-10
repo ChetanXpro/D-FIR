@@ -37,23 +37,28 @@ contract EFIR is ERC721, ERC721URIStorage, ERC721Burnable {
         s_firIds.push(newFIRId);
         s_firIdToStatus[newFIRId] = FIRstate.OPENED;
         s_firIdToLocation[newFIRId] = location;
+        approve(address(this), newFIRId);
         emit OpenedFIR(msg.sender, newFIRId, block.timestamp, location);
         return newFIRId;
     }
 
-    function approveOfficer(uint256 firId, address officer) public {
-        require(ownerOf(firId) == msg.sender, "ERC721: caller is not the owner");
-        s_firApprovedToOfficer[firId] = officer;
+    function officerAssignRequest(uint256 firId, address officer) public {
+        require(_exists(firId), "ERC721: FIR does not exist");
+        require(s_firIdToStatus[firId] == FIRstate.OPENED, "ERC721: FIR is not open");
+        assignOfficer(firId, officer);
     }
 
-    function assignOfficer(uint256 firId) public {
+    function assignOfficer(uint256 firId, address officer) internal {
         require(_exists(firId), "ERC721: FIR does not exist");
-        address approvedOfficer = s_firApprovedToOfficer[firId];
-        require(approvedOfficer == msg.sender, "ERC721: Not approved officer");
+        require(msg.sender == address(this), "NOT PLATFORM");
+        require(s_firIdToStatus[firId] == FIRstate.OPENED, "ERC721: FIR is not open");
+
+        s_firApprovedToOfficer[firId] = officer;
         s_firIdToStatus[firId] = FIRstate.INVESTIGATING;
-        s_assignedOfficer[firId] = approvedOfficer;
-        _transfer(msg.sender, approvedOfficer, firId);
-        emit AssignedOfficer(approvedOfficer, firId, block.timestamp);
+        s_assignedOfficer[firId] = officer;
+        _transfer(msg.sender, officer, firId);
+
+        emit AssignedOfficer(officer, firId, block.timestamp);
     }
 
     function updateFIR(uint256 firId, string memory tokenUri) public {
@@ -100,7 +105,7 @@ contract EFIR is ERC721, ERC721URIStorage, ERC721Burnable {
         return false;
     }
 
-    function getAllFIRs() internal view returns (uint256[] memory) {
+    function getAllFIRs() public view returns (uint256[] memory) {
         return s_firIds;
     }
 
