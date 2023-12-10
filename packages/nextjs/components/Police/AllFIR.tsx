@@ -19,7 +19,7 @@ const AllFIR = () => {
   return (
     <div className="flex flex-col">
       <h1 className="w-full text-center text-2xl font-semibold mb-4">All FIR</h1>
-      <div className="flex flex-wrap gap-3">
+      <div className="flex flex-wrap gap-8">
         {dummyFIR.map(fir => (
           <OpenFIRCard setIsViewFIROpen={setIsViewFIROpen} key={fir.firID} Fir={fir} />
         ))}
