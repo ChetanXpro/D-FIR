@@ -14,6 +14,7 @@ const apiKey = process.env.NEXT_PUBLIC_LIGHTHOUSE_KEY;
 const secretKey = process.env.NEXT_PUBLIC_LIGHTHOUSE_SECRET_KEY;
 
 const FirRegistration = () => {
+  const { address } = useAccount();
   const { authData } = useContext(UserContext);
   const { walletAddress } = useContext(UserContext);
   const [newTokenUri, setTokenUri] = useState("");
@@ -21,7 +22,7 @@ const FirRegistration = () => {
   const authToken = authData.auth_token;
 
   const { makeTransaction, execute_raw_transaction } = useContractInteraction({ walletAddress });
-  const { getTokenURIFromJson } = useStorage(walletAddress);
+  const { getTokenURIFromJson } = useStorage(address as string);
 
   const [firData, setFirData] = useState({
     district: "Borivali",
@@ -92,11 +93,6 @@ const FirRegistration = () => {
   };
 
   const processFilingFir = async () => {
-    // const tx_data = await makeTransaction("fileFIR", ["bhavya", "mumbai"]);
-    // console.log(authToken);
-    // const hash = await execute_raw_transaction(tx_data, "", authToken);
-    // console.log(hash);
-    // const hash = await execute_raw_transaction(tx_data,"")
     const firUri = await getTokenURIFromJson(
       {
         name: firData.complainantName,
@@ -105,6 +101,12 @@ const FirRegistration = () => {
       },
       firData.complaintLongDesc,
     );
+    // const tx_data = await makeTransaction("fileFIR", [firUri, firData.district]);
+    // console.log(authToken);
+    // const hash = await execute_raw_transaction(tx_data, "", authToken);
+    // console.log(hash);
+    // const hash = await execute_raw_transaction(tx_data,"")
+
     await writeAsync({
       args: [firUri, firData.district],
     });

@@ -7,7 +7,7 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const deployedContracts = {
   80001: {
     EFIR: {
-      address: "0x4253B5BbeF913c6610AC04187709eeD5076e1ED7",
+      address: "0x2C7b183A18eef899674f5e1affDf2bC661a32d79",
       abi: [
         {
           inputs: [],
@@ -270,12 +270,6 @@ const deployedContracts = {
               name: "timeRecorded",
               type: "uint256",
             },
-            {
-              indexed: true,
-              internalType: "string",
-              name: "location",
-              type: "string",
-            },
           ],
           name: "OpenedFIR",
           type: "event",
@@ -391,11 +385,6 @@ const deployedContracts = {
             {
               internalType: "string",
               name: "tokenUri",
-              type: "string",
-            },
-            {
-              internalType: "string",
-              name: "location",
               type: "string",
             },
           ],
@@ -544,25 +533,6 @@ const deployedContracts = {
               internalType: "address",
               name: "",
               type: "address",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-          ],
-          name: "s_firIdToLocation",
-          outputs: [
-            {
-              internalType: "string",
-              name: "",
-              type: "string",
             },
           ],
           stateMutability: "view",
@@ -731,18 +701,29 @@ const deployedContracts = {
         },
       ],
       inheritedFunctions: {
-        approve: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
-        balanceOf: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
-        getApproved: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
-        isApprovedForAll: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
+        approve:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
+        balanceOf:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
+        getApproved:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
+        isApprovedForAll:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
         name: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
-        ownerOf: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
-        safeTransferFrom: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
-        setApprovalForAll: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
-        supportsInterface: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
-        symbol: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
-        tokenURI: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
-        transferFrom: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
+        ownerOf:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
+        safeTransferFrom:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
+        setApprovalForAll:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
+        supportsInterface:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
+        symbol:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
+        tokenURI:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
+        transferFrom:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
         burn: "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol",
       },
     },

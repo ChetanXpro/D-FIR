@@ -16,12 +16,11 @@ contract EFIR is ERC721, ERC721URIStorage, ERC721Burnable {
     uint256 private _currentFIRId;
     uint256[] private s_firIds;
     mapping(uint256 => address) public s_firApprovedToOfficer;
-    mapping(uint256 => string) public s_firIdToLocation;
     mapping(uint256 => address) public s_assignedOfficer;
     mapping(uint256 => string) private previousOwnerNames;
     mapping(uint256 => FIRstate) private s_firIdToStatus;
 
-    event OpenedFIR(address indexed owner, uint256 firId, uint256 timeRecorded, string indexed location);
+    event OpenedFIR(address indexed owner, uint256 firId, uint256 timeRecorded);
     event AssignedOfficer(address indexed officer, uint256 firId, uint256 timeRecorded);
     event UpdatedFIR(address indexed officer, uint256 firId, uint256 timeRecorded, string tokenUri);
     event ClosedFIR(address indexed officer, uint256 firId, uint256 timeRecorded);
@@ -30,15 +29,15 @@ contract EFIR is ERC721, ERC721URIStorage, ERC721Burnable {
         _currentFIRId = 0;
     }
 
-    function fileFIR(string memory tokenUri, string memory location) public returns (uint256) {
+    function fileFIR(string memory tokenUri) public returns (uint256) {
         uint256 newFIRId = _currentFIRId++;
         _mint(msg.sender, newFIRId);
         _setTokenURI(newFIRId, tokenUri);
         s_firIds.push(newFIRId);
         s_firIdToStatus[newFIRId] = FIRstate.OPENED;
-        s_firIdToLocation[newFIRId] = location;
+
         approve(address(this), newFIRId);
-        emit OpenedFIR(msg.sender, newFIRId, block.timestamp, location);
+        emit OpenedFIR(msg.sender, newFIRId, block.timestamp);
         return newFIRId;
     }
 
@@ -50,7 +49,6 @@ contract EFIR is ERC721, ERC721URIStorage, ERC721Burnable {
 
     function assignOfficer(uint256 firId, address officer) internal {
         require(_exists(firId), "ERC721: FIR does not exist");
-        require(msg.sender == address(this), "NOT PLATFORM");
         require(s_firIdToStatus[firId] == FIRstate.OPENED, "ERC721: FIR is not open");
 
         s_firApprovedToOfficer[firId] = officer;

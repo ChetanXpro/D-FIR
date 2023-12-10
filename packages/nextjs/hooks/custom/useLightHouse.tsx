@@ -37,16 +37,24 @@ const useStorage = (address: AddressType) => {
     shorterDescription: { name: string; district: string; description: string },
     longerDescription: string,
   ): Promise<string> => {
-    let fileHash = await uploadEncryptedDataOnLighthouse(longerDescription);
+    // let fileHash = await uploadEncryptedDataOnLighthouse(longerDescription);
+    const encryptedText = String(AES.encrypt(longerDescription, secretKey as string));
+    let response = await lighthouse.uploadText(encryptedText, apiKey as string);
     const metaDataJson = {
       name: shorterDescription.name + "Filed FIR about crime at: " + shorterDescription.district,
       description: shorterDescription.description,
-      image: fileHash,
+      image: response.data.fileHash,
     };
     const base64EncodedJson = btoa(JSON.stringify(metaDataJson));
     console.log(base64EncodedJson);
     return base64EncodedJson;
   };
+
+  const decryptTokenURI = async (encryptedLongerDescription: string) => {
+    return String(AES.decrypt(encryptedLongerDescription, secretKey as string));
+  };
+
+  const retrieveHash = async (cid: string) => {};
 
   return {
     getTokenURIFromJson,
